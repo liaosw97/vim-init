@@ -44,13 +44,17 @@ set splitright
 "----------------------------------------------------------------------
 
 " 设置黑色背景
-set background=dark
+" set background=dark
 
 " 允许 256 色
 set t_Co=256
 
+" molokia
+let g:rehash256 = 1
+let g:molokai_original = 1
+
 " 设置颜色主题，会在所有 runtimepaths 的 colors 目录寻找同名配置
-color desert256
+color molokai
 
 
 "----------------------------------------------------------------------

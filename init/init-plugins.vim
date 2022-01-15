@@ -42,10 +42,7 @@ endfunc
 "----------------------------------------------------------------------
 " 在 ~/.vim/bundles 下安装插件
 "----------------------------------------------------------------------
-if has('win32') || has('win64')
-    call plug#begin(get(g:, 'bundle_home', '$VIM\.vim\bundles'))
-else
-    call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
+call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
 
 "----------------------------------------------------------------------
@@ -156,8 +153,6 @@ if index(g:bundle_group, 'basic') >= 0
     " 多文档编辑
     Plug 'fholgado/minibufexpl.vim'
 
-    " 颜色插件
-    Plug 'tomasr/molokai'
 
     " 注释
     Plug 'preservim/nerdcommenter'
@@ -176,11 +171,7 @@ if index(g:bundle_group, 'basic') >= 0
 	" 默认不显示 startify
 	let g:startify_disable_at_vimenter = 1
 
-    if has('win32') || has('win64')
-        let g:startify_session_dir = '$VIM\.vim\session'
-     else
-	    let g:startify_session_dir = '~/.vim/session'
-    endif
+    let g:startify_session_dir = '~/.vim/session'
 
 	" 使用 <space>ha 清除 errormarker 标注的错误
 	noremap <silent><space>ha :RemoveErrorMarkers<cr>
@@ -231,9 +222,7 @@ if index(g:bundle_group, 'basic') >= 0
     map <C-Tab> :MBEbn<cr>
     map <C-S-Tab> :MBEbp<cr>
 
-    let g:rehash256 = 1
-    let g:molokai_original = 1
-    colorscheme molokai
+
 
     " 默认注释分隔符后添加空格
     let g:NERDSpaceDelims = 1
@@ -516,11 +505,7 @@ if index(g:bundle_group, 'ale') >= 0
 		let conf = s:path('tools/conf/')
 		let path1 = conf . a:name
 
-        if has('win32') || has('win64')
-            let path2 = expand('$VIM\.vim\linter\'. a:name) 
-        else
-		    let path2 = expand('~/.vim/linter/'. a:name)
-        endif
+	    let path2 = expand('~/.vim/linter/'. a:name)
 
         if filereadable(path2)
 			return path2
@@ -684,7 +669,7 @@ endif
 "----------------------------------------------------------------------
 " 前端WEB插件
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'WEB') >= 0
+if index(g:bundle_group, 'web') >= 0
     " HTML书写快捷键
     Plug 'mattn/emmet-vim'
 
