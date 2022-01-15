@@ -25,6 +25,7 @@ if !exists('g:bundle_group')
     let g:bundle_group += ['vista']
     let g:bundle_group += ['incsearch']
     let g:bundle_group += ['leetcode']
+	let g:bundle_group += ['python']
 endif
 
 
@@ -795,6 +796,7 @@ if index(g:bundle_group, 'async') >= 0
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'mattn/vim-lsp-settings'
 
     " TypeScript
     " Plug 'ryanolsonx/vim-lsp-typescript'
@@ -928,6 +930,13 @@ if index(g:bundle_group, 'leetcode') >= 0
 
     " 登录leetcode-cn.com的浏览器"
     let g:leetcode_browser='edge'
+endif
+
+"----------------------------------------------------------------------
+" python
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'python') >= 0
+    Plug 'sillybun/vim-repl'
 endif
 
 "----------------------------------------------------------------------
