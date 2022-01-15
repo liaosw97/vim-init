@@ -130,6 +130,24 @@ augroup END
 "----------------------------------------------------------------------
 if has('gui_running')
 	let g:config_vim_tab_style = 3
+
+    " GUI is running or is about to start.
+    " Maximize gvim window (for an alternative on Windows, see simalt below).	
+    set lines=43 columns=100 linespace=0       " GVIM设置行数与列数
+    if has('gui_win32')
+        set guifont=Mononoki_Nerd_Font_Mono:h10:cANSI
+    else
+        set guifont=Mononoki_Nerd_Font_Mono\ 10
+    endif
+else
+    " This is console Vim.
+    if exists("+lines")
+        set lines=41
+    endif
+    if exists("+columns")
+        set columns=100
+    endif
+
 endif
 
 

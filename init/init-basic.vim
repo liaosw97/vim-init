@@ -11,6 +11,12 @@
 " vim: set ts=4 sw=4 tw=78 noet :
 
 "----------------------------------------------------------------------
+" 定义快捷键的前缀(<Leader>)
+"----------------------------------------------------------------------
+
+let mapleader = "\\"
+
+"----------------------------------------------------------------------
 " 基础设置
 "----------------------------------------------------------------------
 
@@ -79,6 +85,12 @@ endif
 "----------------------------------------------------------------------
 if has('autocmd')
 	filetype plugin indent on
+
+    " 开启文件类型侦测
+    filetype on
+
+    " 根据侦测到的不同类型加载对应的插件
+    filetype plugin on
 endif
 
 
@@ -114,7 +126,7 @@ set lazyredraw
 set errorformat+=[%f:%l]\ ->\ %m,[%f:%l]:%m
 
 " 设置分隔符可视
-set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
+set listchars=eol:¬,tab:\|\ ,trail:.,extends:>,precedes:<
 
 
 " 设置 tags：当前文件所在目录往上向根目录搜索直到碰到 .tags 文件
@@ -130,6 +142,40 @@ set formatoptions+=B
 " 文件换行符，默认使用 unix 换行符
 set ffs=unix,dos,mac
 
+" 显示不可见字符
+set list
+
+" 开启行号显示
+set number
+
+" 允许使用鼠标点击定位
+set mouse=a
+
+" 输入的命令显示出来
+set showcmd
+
+set smarttab
+
+" 高亮显示当前行
+set cursorline
+
+" 保存全局变量
+set viminfo+=!
+
+" 光标移动到buffer的顶部和底部时保持3行距离
+set scrolloff=3
+
+" 总是显示状态行
+set cmdheight=2
+
+" 高亮显示当前列
+set cursorcolumn
+
+" 带有如下符号的单词不要被换行分割
+set iskeyword+=_,$,@,%,#,-
+
+set conceallevel=1
+
 
 "----------------------------------------------------------------------
 " 设置代码折叠
@@ -144,6 +190,58 @@ if has('folding')
 	" 默认打开所有缩进
 	set foldlevel=99
 endif
+
+" <操作>：za，打开或关闭当前折叠；zM，关闭所有折叠；zR，打开所有折叠
+
+
+"----------------------------------------------------------------------
+" 中文菜单支持
+"----------------------------------------------------------------------
+set langmenu=zh_CN.UTF-8
+language message zh_CN.UTF-8
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+
+"----------------------------------------------------------------------
+" vim help手册汉化
+"----------------------------------------------------------------------
+if version >= 603
+    set helplang=cn
+endif
+
+
+"----------------------------------------------------------------------
+" C/C++头文件
+"----------------------------------------------------------------------
+if has('win32') || has('win64')
+    set path+=D:\ProSoftware\MinGW\LLVM\include " windows下
+else
+    set path+=/usr/include/     	" Linux下
+endif
+
+nmap <Leader>tn :tnext<CR>  	" <Leader>tn : 正向遍历同名标签
+nmap <Leader>tp :tprevious<CR>	" <Leader>tp : 反向遍历同名标签
+" <使用>  ctrl + ] 是进入下级查找; ctrl + t 是返回上级的查找； 键入快捷键 g]，vim 将罗列出名为 printMsg 的所有标签候选列表，按需选择键入编号即可跳转进入
+" <查看头文件>  按下gf键便便可以进入到相应头文件，如果要后退可以ctrl+o
+
+
+"----------------------------------------------------------------------
+" 营造专注氛围
+"----------------------------------------------------------------------
+" 禁止显示滚动条
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r
+set guioptions-=R
+
+" 禁止显示菜单和工具条
+set guioptions-=m
+set guioptions-=T
+
+"set gcr=a:block-blinkon0	    " 禁止光标闪烁(与光标变细有冲突)
+" 使得terminal的光标变为细线，而不是默认的粗条。这个在vim的普通模式和插入模式都会生效。
+set gcr=n-v-c:ver25-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor/lCursor
 
 
 "----------------------------------------------------------------------
@@ -167,6 +265,5 @@ set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
 set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
 set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
-
 
 

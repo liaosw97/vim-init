@@ -24,8 +24,12 @@ command! -nargs=1 LoadScript exec 'so '.s:home.'/'.'<args>'
 exec 'set rtp+='.s:home
 
 " 将 ~/.vim 目录加入 runtimepath (有时候 vim 不会自动帮你加入）
-set rtp+=~/.vim
 
+if has('win32') || has('win64')
+    set rtp+=$VIM/.vim
+else
+    set rtp+=~/.vim
+endif
 
 "----------------------------------------------------------------------
 " 模块加载
