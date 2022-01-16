@@ -467,8 +467,27 @@ endif
 "----------------------------------------------------------------------
 " ale：动态语法检查
 "----------------------------------------------------------------------
+	" 自动下载对应的插件
+	function! InstallRequiredForALE(info)
+
+		" python
+		if index(g:bundle_group, 'python') >= 0
+			!pip install flake8 
+		endif
+		
+		" JavaScript
+		if index(g:bundle_group, 'web') >= 0
+			!npm install -g eslint 
+		endif
+
+		" vim
+		!npm install -g vim-language-server
+	endfunction	
+
+
+
 if index(g:bundle_group, 'ale') >= 0
-	Plug 'w0rp/ale', { 'do': function('InstallRequirediForALE') }
+	Plug 'w0rp/ale', { 'do': function('InstallRequiredForALE') }
 
 	" 设定延迟和提示信息
 	let g:ale_completion_delay = 500
@@ -531,22 +550,7 @@ if index(g:bundle_group, 'ale') >= 0
 		let g:ale_linters.cpp += ['clang']
 	endif
 
-	" 自动下载对应的插件
-	function! InstallRequirediForALE(info)
 
-		" python
-		if index(g:bundle_group, 'python') >= 0
-			!pip install flake8 
-		endif
-		
-		" JavaScript
-		if index(g:bundle_group, 'web') >= 0
-			!npm install -g eslint 
-		endif
-
-		" vim
-		!npm install -g vim-language-server
-	endfunction	
 endif
 
 
@@ -803,6 +807,26 @@ endif
 "----------------------------------------------------------------------
 " async
 "----------------------------------------------------------------------
+
+	" 自动下载对应的插件
+	function! InstallRequirediForAsync(info)
+
+		" python
+		if index(g:bundle_group, 'python') >= 0
+			!pip install python-language-server
+		endif
+		
+		" JavaScript
+		if index(g:bundle_group, 'web') >= 0
+			!npm install -g typescript typescript-language-server
+		endif
+
+	    if executable('ctags')
+			!pip install pygments
+		endif
+    endfunction	
+
+
 if index(g:bundle_group, 'async') >= 0
 
     Plug 'skywind3000/vim-dict'
@@ -883,23 +907,7 @@ if index(g:bundle_group, 'async') >= 0
     endif
 
 
-	" 自动下载对应的插件
-	function! InstallRequirediForAsync(info)
 
-		" python
-		if index(g:bundle_group, 'python') >= 0
-			!pip install python-language-server
-		endif
-		
-		" JavaScript
-		if index(g:bundle_group, 'web') >= 0
-			!npm install -g typescript typescript-language-server
-		endif
-
-	    if executable('ctags')
-			!pip install pygments
-		endif
-    endfunction	
 endif
 
 " 安装gtags(global)和universal ctags  (pip install pygments)
