@@ -468,7 +468,7 @@ endif
 " ale：动态语法检查
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'ale') >= 0
-	Plug 'w0rp/ale'
+	Plug 'w0rp/ale', { 'do': function('InstallRequirediForALE') }
 
 	" 设定延迟和提示信息
 	let g:ale_completion_delay = 500
@@ -530,6 +530,23 @@ if index(g:bundle_group, 'ale') >= 0
 		let g:ale_linters.c += ['clang']
 		let g:ale_linters.cpp += ['clang']
 	endif
+
+	" 自动下载对应的插件
+	function! InstallRequirediForALE(info)
+
+		" python
+		if index(g:bundle_group, 'python') >= 0
+			!pip install flake8 
+		endif
+		
+		" JavaScript
+		if index(g:bundle_group, 'web') >= 0
+			!npm install -g eslint 
+		endif
+
+		" vim
+		!npm install -g vim-language-server
+	endfunction	
 endif
 
 
@@ -794,7 +811,7 @@ if index(g:bundle_group, 'async') >= 0
     " 异步补全
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/async.vim'
-    Plug 'prabirshrestha/vim-lsp'
+    Plug 'prabirshrestha/vim-lsp', { 'do': function('InstallRequirediForAsync') }
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
     Plug 'mattn/vim-lsp-settings'
 
@@ -865,7 +882,31 @@ if index(g:bundle_group, 'async') >= 0
         let $GTAGSCONF = '/usr/share/gtags/gtags.conf'
     endif
 
+
+	" 自动下载对应的插件
+	function! InstallRequirediForAsync(info)
+
+		" python
+		if index(g:bundle_group, 'python') >= 0
+			!pip install python-language-server
+		endif
+		
+		" JavaScript
+		if index(g:bundle_group, 'web') >= 0
+			!npm install -g typescript typescript-language-server
+		endif
+
+	    if executable('ctags')
+			!pip install pygments
+		endif
+    endfunction	
 endif
+
+" 安装gtags(global)和universal ctags  (pip install pygments)
+" 安装python补全要安装 pip install python-language-server
+" 安装c/c++补全要安装clang
+" 安装JavaScript补全要安装 npm install -g typescript typescript-language-server 
+" 后在根目录下创建 tsconfig.json (TypeScript) 或 package.json (JavaScript)
 
 "----------------------------------------------------------------------
 " vista
