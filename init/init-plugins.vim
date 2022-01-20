@@ -62,7 +62,8 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
 Plug 'chrisbra/vim-diff-enhanced'
 
-
+" 中文文档
+Plug 'yianwillis/vimcdoc'
 "----------------------------------------------------------------------
 " Dirvish 设置：自动排序并隐藏文件，同时定位到相关文件
 " 这个排序函数可以将目录排在前面，文件排在后面，并且按照字母顺序排序
@@ -463,7 +464,6 @@ if index(g:bundle_group, 'grammer') >= 0
 	map <space>rp <Plug>(grammarous-move-to-previous-error)
 endif
 
-
 "----------------------------------------------------------------------
 " ale：动态语法检查
 "----------------------------------------------------------------------
@@ -472,16 +472,22 @@ endif
 
 		" python
 		if index(g:bundle_group, 'python') >= 0
-			!pip install flake8 
+			if has('win32') || has ('win64')
+				!pip install flake8
+			else
+				!sudo pip install flake8
+			endif
 		endif
 		
 		" JavaScript
 		if index(g:bundle_group, 'web') >= 0
-			!npm install -g eslint 
+			if has('win32') || has ('win64')
+				!npm install -g eslint 
+			else
+				!sudo npm install -g eslint
+			endif
 		endif
 
-		" vim
-		!npm install -g vim-language-server
 	endfunction	
 
 
@@ -516,9 +522,8 @@ if index(g:bundle_group, 'ale') >= 0
 				\ 'lua': ['luac'], 
 				\ 'go': ['go build', 'gofmt'],
 				\ 'java': ['javac'],
-				\ 'javascript': ['eslint', 'jshint'], 
+				\ 'javascript': ['eslint', 'jshint'],
 				\ }
-
 
 	" 获取 pylint, flake8 的配置文件，在 vim-init/tools/conf 下面
 	function s:lintcfg(name)
@@ -813,19 +818,37 @@ endif
 
 		" python
 		if index(g:bundle_group, 'python') >= 0
-			!pip install python-language-server
+			if has('win32') || has('win64')
+				!pip install python-language-server
+			else
+				!sudo pip install python-language-server
+			endif
 		endif
 		
 		" JavaScript
 		if index(g:bundle_group, 'web') >= 0
-			!npm install -g typescript typescript-language-server
+			if has('win32') || has('win64')
+				!npm install -g typescript typescript-language-server
+			else
+				!sudo npm install -g typescript typescript-language-server
+			endif
 		endif
 
 	    if executable('ctags')
-			!pip install pygments
+			if has('win32') || has('win64')
+				!pip install pygments
+			else
+				!sudo pip install pygments
+			endif
+		endif
+
+				" vim
+		if has('win32') || has ('win64')
+			!npm install -g vim-language-server
+		else 
+			!sudo npm install -g vim-language-server
 		endif
     endfunction	
-
 
 if index(g:bundle_group, 'async') >= 0
 
@@ -838,6 +861,7 @@ if index(g:bundle_group, 'async') >= 0
     Plug 'prabirshrestha/vim-lsp', { 'do': function('InstallRequirediForAsync') }
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
     Plug 'mattn/vim-lsp-settings'
+	Plug 'rhysd/vim-lsp-ale'
 
     " TypeScript
     " Plug 'ryanolsonx/vim-lsp-typescript'
@@ -891,6 +915,7 @@ if index(g:bundle_group, 'async') >= 0
     " 模糊智能完成
     let g:asyncomplete_smart_completion = 1  
     let g:asyncomplete_auto_popup = 1
+	let g:lsp_settings_servers_dir = '~/.vim/lsp-setting'
 
     " 窗口预览
     set completeopt+=preview
@@ -904,7 +929,7 @@ if index(g:bundle_group, 'async') >= 0
         let $GTAGSCONF = 'D:\ProSoftWare\Dependence\Globe\share\gtags\gtags.conf'
     else
         let $GTAGSCONF = '/usr/share/gtags/gtags.conf'
-    endif
+	endif
 
 
 
