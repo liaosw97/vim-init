@@ -848,7 +848,14 @@ endif
 		else 
 			!sudo npm install -g vim-language-server
 		endif
+
+		if has('win32') || has ('win64')
+			!npm install -g bash-language-server
+		else 
+			!sudo npm install -g bash-language-server
+		endif
     endfunction	
+
 
 if index(g:bundle_group, 'async') >= 0
 
