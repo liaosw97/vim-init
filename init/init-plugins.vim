@@ -46,6 +46,11 @@ endfunc
 call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
 
+if has('win32') || has('win64')
+	execute pathogen#infect('$HOME\.vim\bundles\{}')
+endif
+
+
 "----------------------------------------------------------------------
 " 默认插件 
 "----------------------------------------------------------------------
