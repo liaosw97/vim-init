@@ -487,9 +487,9 @@ endif
 		" JavaScript
 		if index(g:bundle_group, 'web') >= 0
 			if has('win32') || has ('win64')
-				!npm install -g eslint 
+				!npm install -g eslint eslint-plugin-vue
 			else
-				!sudo npm install -g eslint
+				!sudo npm install -g eslint eslint-plugin-vue
 			endif
 		endif
 
@@ -528,7 +528,10 @@ if index(g:bundle_group, 'ale') >= 0
 				\ 'go': ['go build', 'gofmt'],
 				\ 'java': ['javac'],
 				\ 'javascript': ['eslint', 'jshint'],
+				\ 'vue': ['eslint', 'vls'],
 				\ }
+
+	let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
 
 	" 获取 pylint, flake8 的配置文件，在 vim-init/tools/conf 下面
 	function s:lintcfg(name)
@@ -702,7 +705,10 @@ endif
 " 前端WEB插件
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'web') >= 0
-    " HTML书写快捷键
+	" js 在 html页面中缩进
+	Plug 'othree/html5.vim'
+
+	" HTML书写快捷键
     Plug 'mattn/emmet-vim'
 
     " css语法高亮
@@ -711,7 +717,15 @@ if index(g:bundle_group, 'web') >= 0
     " JavaScript语法突出显示和改进的缩进
     Plug 'pangloss/vim-javascript', {'for': ['html', 'js']}
 
-    " ctrl + z + , 键触发
+	" VUE
+	Plug 'posva/vim-vue'
+
+	" post install (yarn install | npm install) then load plugin only for editing supported files
+	Plug 'prettier/vim-prettier', {
+		\ 'do': 'yarn install --frozen-lockfile --production',
+		\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+
+	" ctrl + z + , 键触发
     let g:user_emmet_leader_key = '<C-Z>'
 
     " 启用JSDocs的语法高亮
@@ -763,42 +777,12 @@ if index(g:bundle_group, 'markdown') >= 0
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
     Plug 'iamcco/mathjax-support-for-mkdp'
-    Plug 'iamcco/markdown-preview.vim'
+	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
     Plug 'mzlogin/vim-markdown-toc'
 
-    " LaTeX语法
-    let g:vim_markdown_math = 1
+	" markdown-preview
+	
 
-    " 更改默认文件扩展名
-    let g:vim_markdown_auto_extension_ext ='txt'
-
-    " 禁用默认键映射，此时下面的指令不可用
-    let g:vim_markdown_no_default_key_mappings = 1
-
-    " 禁用折叠，取消则打开时默认白折叠所有标题
-    let g:vim_markdown_folding_disabled = 1
-
-    " 更改折叠样式-类似python-mode的样式折叠
-    let g:vim_markdown_folding_style_pythonic = 1
-
-    " 为了防止设置折叠文本
-    let g:vim_markdown_override_foldtext = 0
-
-    " 设置折叠级别-标题折叠级别是1到6之间的数字
-    let g:vim_markdown_folding_level = 6
-
-    " 启用TOC窗口自动调整
-    let g:vim_markdown_toc_autofit = 1
-
-    " 限制单行文本
-    let g:vim_markdown_emphasis_multiline = 0
-
-    " 代码块语言-默认值为['c++ = cpp','viml = vim','bash = sh','ini = dosini']
-    let g:vim_markdown_fenced_languages = ['csharp=cs']
-
-    " 使用删除线
-    let g:vim_markdown_strikethrough = 1
-    let g:mkdp_path_to_chrome = "chrome"
 endif
 
 "----------------------------------------------------------------------
