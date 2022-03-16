@@ -43,12 +43,11 @@ endfunc
 "----------------------------------------------------------------------
 " 在 ~/.vim/bundles 下安装插件
 "----------------------------------------------------------------------
-call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
+call plug#begin(get(g:, 'bundle_home', '~/.vim/bundle'))
 
 
-if has('win32') || has('win64')
-	execute pathogen#infect('$HOME\.vim\bundles\{}')
-endif
+call pathogen#infect()
+call pathogen#helptags()
 
 
 "----------------------------------------------------------------------
@@ -160,12 +159,13 @@ if index(g:bundle_group, 'basic') >= 0
     " 多文档编辑
     Plug 'fholgado/minibufexpl.vim'
 
-
     " 注释
     Plug 'preservim/nerdcommenter'
 
+	" 翻译
+	Plug 'voldikss/vim-translator'
 
-    " 默认打开/关闭 
+	" 默认打开/关闭 
     "   let g:rainbow_active = 1
 
     " <Leader><F4> : 彩虹括号开关键
@@ -474,25 +474,15 @@ endif
 "----------------------------------------------------------------------
 	" 自动下载对应的插件
 	function! InstallRequiredForALE(info)
-
-		" python
-		if index(g:bundle_group, 'python') >= 0
-			if has('win32') || has ('win64')
+			" python
+			if index(g:bundle_group, 'python') >= 0
 				!pip install flake8
-			else
-				!sudo pip install flake8
 			endif
-		endif
-		
-		" JavaScript
-		if index(g:bundle_group, 'web') >= 0
-			if has('win32') || has ('win64')
-				!npm install -g eslint eslint-plugin-vue
-			else
-				!sudo npm install -g eslint eslint-plugin-vue
-			endif
-		endif
 
+			" JavaScript
+			if index(g:bundle_group, 'web') >= 0 && executable(eslint) == 0
+				!npm install -g eslint eslint-plugin-vue vls
+			endif
 	endfunction	
 
 
@@ -708,6 +698,8 @@ if index(g:bundle_group, 'web') >= 0
 	" js 在 html页面中缩进
 	Plug 'othree/html5.vim'
 
+	Plug 'AndrewRadev/tagalong.vim'
+
 	" HTML书写快捷键
     Plug 'mattn/emmet-vim'
 
@@ -725,6 +717,8 @@ if index(g:bundle_group, 'web') >= 0
 		\ 'do': 'yarn install --frozen-lockfile --production',
 		\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
+	let g:tagalong_filetypes = ['html', 'vue']
+
 	" ctrl + z + , 键触发
     let g:user_emmet_leader_key = '<C-Z>'
 
@@ -736,6 +730,10 @@ if index(g:bundle_group, 'web') >= 0
 
     " 启用Flow的语法突出显示
     let g:javascript_plugin_flow = 1
+
+	" 自动格式化
+	let g:prettier#autoformat = 1
+	let g:prettier#autoformat_require_pragma = 0
 
     augroup javascript_folding
         au!
@@ -780,9 +778,6 @@ if index(g:bundle_group, 'markdown') >= 0
 	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
     Plug 'mzlogin/vim-markdown-toc'
 
-	" markdown-preview
-	
-
 endif
 
 "----------------------------------------------------------------------
@@ -794,8 +789,6 @@ if index(g:bundle_group, 'asyncRun') >= 0
     Plug 'skywind3000/asyncrun.vim'
 
     let g:asyncrun_open = 6
-    " let g:asynctasks_term_pos = 'tab'
-    " let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
 endif
 
 "----------------------------------------------------------------------
@@ -804,45 +797,28 @@ endif
 
 	" 自动下载对应的插件
 	function! InstallRequirediForAsync(info)
-
-		" python
-		if index(g:bundle_group, 'python') >= 0
-			if has('win32') || has('win64')
+			" python
+			if index(g:bundle_group, 'python') >= 0
 				!pip install python-language-server
-			else
-				!sudo pip install python-language-server
 			endif
-		endif
 		
-		" JavaScript
-		if index(g:bundle_group, 'web') >= 0
-			if has('win32') || has('win64')
+			" JavaScript
+			if index(g:bundle_group, 'web') >= 0 && executable(typescript-language-server) = 0
 				!npm install -g typescript typescript-language-server
-			else
-				!sudo npm install -g typescript typescript-language-server
 			endif
-		endif
 
-	    if executable('ctags')
-			if has('win32') || has('win64')
+			if executable('ctags')
 				!pip install pygments
-			else
-				!sudo pip install pygments
 			endif
-		endif
 
 				" vim
-		if has('win32') || has ('win64')
-			!npm install -g vim-language-server
-		else 
-			!sudo npm install -g vim-language-server
-		endif
-
-		if has('win32') || has ('win64')
-			!npm install -g bash-language-server
-		else 
-			!sudo npm install -g bash-language-server
-		endif
+			if executable(vim-language-server) == 0
+				!npm install -g vim-language-server
+			endif
+			
+			if executable(bash-language-server) == 0
+				!npm install -g bash-language-server
+			endif
     endfunction	
 
 
@@ -1013,90 +989,4 @@ endif
 " 结束插件安装
 "----------------------------------------------------------------------
 call plug#end()
-
-
-
-"----------------------------------------------------------------------
-" YouCompleteMe 默认设置：YCM 需要你另外手动编译安装
-"----------------------------------------------------------------------
-
-" 禁用预览功能：扰乱视听
-let g:ycm_add_preview_to_completeopt = 0
-
-" 禁用诊断功能：我们用前面更好用的 ALE 代替
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_complete_in_strings=1
-let g:ycm_key_invoke_completion = '<c-z>'
-set completeopt=menu,menuone,noselect
-
-" noremap <c-z> <NOP>
-
-" 两个字符自动触发语义补全
-let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-			\ 'cs,lua,javascript': ['re!\w{2}'],
-			\ }
-
-
-"----------------------------------------------------------------------
-" Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
-"----------------------------------------------------------------------
-let g:ycm_filetype_whitelist = { 
-			\ "c":1,
-			\ "cpp":1, 
-			\ "objc":1,
-			\ "objcpp":1,
-			\ "python":1,
-			\ "java":1,
-			\ "javascript":1,
-			\ "coffee":1,
-			\ "vim":1, 
-			\ "go":1,
-			\ "cs":1,
-			\ "lua":1,
-			\ "perl":1,
-			\ "perl6":1,
-			\ "php":1,
-			\ "ruby":1,
-			\ "rust":1,
-			\ "erlang":1,
-			\ "asm":1,
-			\ "nasm":1,
-			\ "masm":1,
-			\ "tasm":1,
-			\ "asm68k":1,
-			\ "asmh8300":1,
-			\ "asciidoc":1,
-			\ "basic":1,
-			\ "vb":1,
-			\ "make":1,
-			\ "cmake":1,
-			\ "html":1,
-			\ "css":1,
-			\ "less":1,
-			\ "json":1,
-			\ "cson":1,
-			\ "typedscript":1,
-			\ "haskell":1,
-			\ "lhaskell":1,
-			\ "lisp":1,
-			\ "scheme":1,
-			\ "sdl":1,
-			\ "sh":1,
-			\ "zsh":1,
-			\ "bash":1,
-			\ "man":1,
-			\ "markdown":1,
-			\ "matlab":1,
-			\ "maxima":1,
-			\ "dosini":1,
-			\ "conf":1,
-			\ "config":1,
-			\ "zimbu":1,
-			\ "ps1":1,
-			\ }
-
 
