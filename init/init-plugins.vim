@@ -46,10 +46,6 @@ endfunc
 call plug#begin(get(g:, 'bundle_home', '~/.vim/bundle'))
 
 
-call pathogen#infect()
-call pathogen#helptags()
-
-
 "----------------------------------------------------------------------
 " 默认插件 
 "----------------------------------------------------------------------
@@ -469,7 +465,7 @@ if index(g:bundle_group, 'grammer') >= 0
 	map <space>rp <Plug>(grammarous-move-to-previous-error)
 endif
 
-"----------------------------------------------------------------------
+"---------------------------------------------------------------------
 " ale：动态语法检查
 "----------------------------------------------------------------------
 	" 自动下载对应的插件
@@ -517,7 +513,7 @@ if index(g:bundle_group, 'ale') >= 0
 				\ 'lua': ['luac'], 
 				\ 'go': ['go build', 'gofmt'],
 				\ 'java': ['javac'],
-				\ 'javascript': ['eslint', 'jshint'],
+				\ 'javascript': ['eslint'],
 				\ 'vue': ['eslint', 'vls'],
 				\ }
 
