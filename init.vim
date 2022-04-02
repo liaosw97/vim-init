@@ -48,6 +48,13 @@ LoadScript init/init-style.vim
 " 自定义按键
 LoadScript init/init-keymaps.vim
 
-" 插件配置文件
-LoadScript init/init-plugconfig.vim
 
+"----------------------------------------------------------------------
+" 模块加载
+"----------------------------------------------------------------------
+
+" language serve 注册
+LoadScript config/register-config.vim
+
+" ddc配置
+LoadScript config/ddc-config.vim

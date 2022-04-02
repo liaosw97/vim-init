@@ -97,18 +97,6 @@ let g:rainbow_conf = {
             \ })
     endif
 
-    if has('win32') || has('win64')
-        autocmd User asyncomplete_setup call asyncomplete#register_source(
-            \ asyncomplete#sources#clang#get_source_options({
-            \     'config': {
-            \         'clang_path': 'D:\ProSoftware\MinGW\LLVM\bin\clang.exe',
-            \         'clang_args': {
-            \             'default': ['-I\D:\ProSoftware\MinGW\LLVM\include'],
-            \             'cpp': ['-std=c++11', '-I\D:\ProSoftware\MinGW\LLVM\include']
-            \         }
-            \     }
-            \ }))
-    endif
 
     " TypeScript && JavaScript
     if executable('typescript-language-server')
@@ -139,84 +127,6 @@ let g:rainbow_conf = {
             \ })
     endif
 
-    " UltiSnips
-    if has('python3')
-        let g:UltiSnipsExpandTrigger="<c-z>"
-        call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-            \ 'name': 'ultisnips',
-            \ 'whitelist': ['*'],
-            \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-            \ }))
-    endif
-
-    " Onifunc
-    call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
-        \ 'name': 'omni',
-        \ 'whitelist': ['*'],
-        \ 'blacklist': ['c', 'cpp'],
-        \ 'completor': function('asyncomplete#sources#omni#completor')
-        \  }))
-
-    " Buffer 
-    call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-        \ 'name': 'buffer',
-        \ 'whitelist': ['*'],
-        \ 'blacklist': ['go'],
-        \ 'priority': 3,
-        \ 'completor': function('asyncomplete#sources#buffer#completor'),
-        \ }))
-
-    " Tags
-    au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
-        \ 'name': 'tags',
-        \ 'whitelist': ['*'],
-        \ 'priority': 3,
-        \ 'completor': function('asyncomplete#sources#tags#completor'),
-        \ 'config': {
-        \    'max_file_size': 50000000,
-        \  },
-        \ }))
-
-    " Tmux
-    let g:tmuxcomplete#asyncomplete_source_options = {
-            \ 'name':      'tmuxcomplete',
-            \ 'whitelist': ['*'],
-            \ 'priority': 3,
-            \ 'config': {
-            \     'splitmode':      'words',
-            \     'filter_prefix':   1,
-            \     'show_incomplete': 1,
-            \     'sort_candidates': 0,
-            \     'scrollback':      0,
-            \     'truncate':        0
-            \     }
-            \ }
-
-    " File
-    au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-        \ 'name': 'file',
-        \ 'whitelist': ['*'],
-        \ 'priority': 10,
-        \ 'completor': function('asyncomplete#sources#file#completor')
-        \ }))
-
-    " HTML
-    au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#emmet#get_source_options({
-    \ 'name': 'emmet',
-    \ 'whitelist': ['html'],
-    \ 'completor': function('asyncomplete#sources#emmet#completor'),
-    \ }))
-
-    " Git
-    au User asyncomplete_setup call asyncomplete#register_source({
-    \ 'name': 'gitcommit',
-    \ 'whitelist': ['gitcommit'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#gitcommit#completor')
-    \ })
-
-    " Lisp
-    autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#vlime#get_source_options({ 'priority': 10 }))
 
     " Vim
     if executable('vim-language-server')
@@ -244,3 +154,23 @@ let g:rainbow_conf = {
 			\ })
 		augroup END
 	endif
+
+	" CSS
+	if executable('css-languageserver')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'css-languageserver',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver --stdio']},
+        \ 'whitelist': ['css', 'less', 'sass'],
+        \ })
+	endif
+
+	" HTML
+	if executable('html-languageserver')
+    au User lsp_setup call lsp#register_server({
+		\ 'name': 'html-languageserver',
+		\ 'cmd': {server_info->[&shell, &shellcmdflag, 'html-languageserver --stdio']},
+		\ 'whitelist': ['html'],
+		\ })
+	endif
+
+

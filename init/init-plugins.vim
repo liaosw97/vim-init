@@ -28,6 +28,11 @@ if !exists('g:bundle_group')
 	let g:bundle_group += ['python']
 endif
 
+" 补全框架
+if !exists('g:async_child')
+	let g:async_child = ["async"]
+	let g:async_child += ["ddc"]
+endif
 
 "----------------------------------------------------------------------
 " 计算当前 vim-init 的子路径
@@ -276,9 +281,7 @@ if index(g:bundle_group, 'enhanced') >= 0
 	" 提供 gist 接口
 	Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
 	
-	" ALT_+/- 用于按分隔符扩大缩小 v 选区
-	map <m-=> <Plug>(expand_region_expand)
-	map <m--> <Plug>(expand_region_shrink)
+
 endif
 
 
@@ -476,8 +479,8 @@ endif
 			endif
 
 			" JavaScript
-			if index(g:bundle_group, 'web') >= 0 && executable(eslint) == 0
-				!npm install -g eslint eslint-plugin-vue vls
+			if index(g:bundle_group, 'web') >= 0 
+				!npm install -g eslint eslint-plugin-vue 
 			endif
 	endfunction	
 
@@ -514,7 +517,7 @@ if index(g:bundle_group, 'ale') >= 0
 				\ 'go': ['go build', 'gofmt'],
 				\ 'java': ['javac'],
 				\ 'javascript': ['eslint'],
-				\ 'vue': ['eslint', 'vls'],
+				\ 'vue': ['eslint', 'volar'],
 				\ }
 
 	let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
@@ -799,7 +802,7 @@ endif
 			endif
 		
 			" JavaScript
-			if index(g:bundle_group, 'web') >= 0 && executable(typescript-language-server) = 0
+			if index(g:bundle_group, 'web') >= 0
 				!npm install -g typescript typescript-language-server
 			endif
 
@@ -807,48 +810,100 @@ endif
 				!pip install pygments
 			endif
 
-				" vim
-			if executable(vim-language-server) == 0
-				!npm install -g vim-language-server
-			endif
-			
-			if executable(bash-language-server) == 0
-				!npm install -g bash-language-server
-			endif
+			" vim
+			!npm install -g vim-language-server
+		
+			" bash
+			!npm install -g bash-language-server
+
+			" css
+			!npm install -g vscode-css-languageserver-bin
+
+			!npm install --global vscode-html-languageserver-bin
+
     endfunction	
 
 
 if index(g:bundle_group, 'async') >= 0
 
+	" 字典补全, 手动开启
     Plug 'skywind3000/vim-dict'
     Plug 'skywind3000/vim-auto-popmenu'
 
-    " 异步补全
-    Plug 'prabirshrestha/asyncomplete.vim'
-    Plug 'prabirshrestha/async.vim'
+	" vim-lsp  language server
     Plug 'prabirshrestha/vim-lsp', { 'do': function('InstallRequirediForAsync') }
-    Plug 'prabirshrestha/asyncomplete-lsp.vim'
     Plug 'mattn/vim-lsp-settings'
 	Plug 'rhysd/vim-lsp-ale'
+
+	" 补全框架
+	" ddc
+	if index(g:async_child, 'ddc') >= 0
+		Plug 'Shougo/ddc.vim'
+		Plug 'vim-denops/denops.vim'
+
+		Plug 'Shougo/ddc-around'
+
+		Plug 'Shougo/ddc-matcher_length'
+		Plug 'Shougo/ddc-matcher_head'
+		Plug 'Shougo/ddc-sorter_rank'
+		
+		Plug 'matsui54i/denops-popup-preview.vim'
+		Plug 'Shougo/pum.vim'
+
+		Plug 'tani/ddc-fuzzy'
+
+		Plug 'shun/ddc-vim-lsp'
+		Plug 'statiolake/ddc-ale'
+
+		Plug 'matsui54i/denops-signature_help'
+
+		Plug 'LumaKernel/ddc-file'
+
+		Plug 'matsui54/ddc-buffer'
+
+		Plug 'LumaKernel/ddc-tabnine'
+
+		Plug 'Shougo/ddc-rg'
+
+		Plug 'Shougo/ddc-converter_remove_overlap'
+
+		Plug 'matsui54/ddc-filter_editdistance'
+
+		Plug 'Shougo/ddc-line'
+
+	    if executable('ctags')
+			Plug 'delphinus/ddc-ctags'
+		endif
+	endif
+	"
+	"
+	"
+	" async
+	"
+	if index(g:async_child, 'async') >= 0
+	endif
+	""Plug 'prabirshrestha/asyncomplete.vim'
+    "Plug 'prabirshrestha/async.vim'
+    "Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
     " TypeScript
     " Plug 'ryanolsonx/vim-lsp-typescript'
 
     " Omnifunc 
-    Plug 'yami-beta/asyncomplete-omni.vim'
+   " Plug 'yami-beta/asyncomplete-omni.vim'
 
     " File
-    Plug 'prabirshrestha/asyncomplete-file.vim'
+   " Plug 'prabirshrestha/asyncomplete-file.vim'
 
      " 缓冲区
-    Plug 'prabirshrestha/asyncomplete-buffer.vim'
+   " Plug 'prabirshrestha/asyncomplete-buffer.vim'
 
     " HTML补全
-    Plug 'prabirshrestha/asyncomplete-emmet.vim'
-    Plug 'laixintao/asyncomplete-gitcommit'
+   " Plug 'prabirshrestha/asyncomplete-emmet.vim'
+    "Plug 'laixintao/asyncomplete-gitcommit'
 
     if has('win32') || has('win64')
-        Plug 'keremc/asyncomplete-clang.vim'
+        "Plug 'keremc/asyncomplete-clang.vim'
     else
         " Plug 'wellle/tmux-complete.vim'
     endif
@@ -857,12 +912,12 @@ if index(g:bundle_group, 'async') >= 0
     if has('python3')
         Plug 'SirVer/ultisnips'
         Plug 'honza/vim-snippets'
-        Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+        "Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
     endif
 
     " 自动生成tags
     if executable('ctags')
-        Plug 'prabirshrestha/asyncomplete-tags.vim'
+       " Plug 'prabirshrestha/asyncomplete-tags.vim'
     endif
 
     " enable this plugin for filetypes, '*' for all files.
@@ -884,6 +939,8 @@ if index(g:bundle_group, 'async') >= 0
     let g:asyncomplete_smart_completion = 1  
     let g:asyncomplete_auto_popup = 1
 	let g:lsp_settings_servers_dir = '~/.vim/lsp-setting'
+
+	let g:lsp_signature_help_enabled = 0
 
     " 窗口预览
     set completeopt+=preview
@@ -985,4 +1042,3 @@ endif
 " 结束插件安装
 "----------------------------------------------------------------------
 call plug#end()
-
