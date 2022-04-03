@@ -476,7 +476,7 @@ endif
 			endif
 
 			" JavaScript
-			if index(g:bundle_group, 'web') >= 0 && executable(eslint) == 0
+			if index(g:bundle_group, 'web') >= 0 
 				!npm install -g eslint eslint-plugin-vue vls
 			endif
 	endfunction	
@@ -799,7 +799,7 @@ endif
 			endif
 		
 			" JavaScript
-			if index(g:bundle_group, 'web') >= 0 && executable(typescript-language-server) = 0
+			if index(g:bundle_group, 'web') >= 0 
 				!npm install -g typescript typescript-language-server
 			endif
 
@@ -808,13 +808,9 @@ endif
 			endif
 
 				" vim
-			if executable(vim-language-server) == 0
-				!npm install -g vim-language-server
-			endif
+			!npm install -g vim-language-server
 			
-			if executable(bash-language-server) == 0
-				!npm install -g bash-language-server
-			endif
+			!npm install -g bash-language-server
     endfunction	
 
 
