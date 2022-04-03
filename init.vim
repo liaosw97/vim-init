@@ -52,7 +52,21 @@ LoadScript init/init-keymaps.vim
 " 配置加载
 "----------------------------------------------------------------------
 
-" 插件配置文件
+" 基础插件配置 
+LoadScript config/base-config.vim
+
+LoadScript config/ale-config.vim
+
+LoadScript config/async-complete-config.vim
+
+LoadScript config/vim-lsp-config.vim
+
+LoadScript config/web-config.vim
+
+LoadScript config/language-config.vim
+
+" vim-lsp 注册语言Server
 LoadScript config/language-server-config.vim
 
+LoadScript config/tools-config.vim
 

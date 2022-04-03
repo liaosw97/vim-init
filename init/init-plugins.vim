@@ -11,7 +11,7 @@
 
 
 "----------------------------------------------------------------------
-" 默认情况下的分组，可以再前面覆盖之
+" 功能模块, 默认情况下的分组，可以再前面覆盖之
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
     let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
@@ -21,14 +21,30 @@ if !exists('g:bundle_group')
     let g:bundle_group += ['java']
     let g:bundle_group += ['lisp']
     let g:bundle_group += ['markdown']
-    let g:bundle_group += ['asyncRun', 'async']
+    let g:bundle_group += ['asyncRun', 'asyncComplete']
     let g:bundle_group += ['vista']
     let g:bundle_group += ['incsearch']
     let g:bundle_group += ['leetcode']
 	let g:bundle_group += ['python']
 endif
 
+"----------------------------------------------------------------------
+" 补全服务器
+"----------------------------------------------------------------------
 
+if !exists('g:lang_serve')
+    let g:lang_serve = ['vim-lsp']
+    let g:lang_serve += ['ale']
+endif
+
+"----------------------------------------------------------------------
+" 补全框架
+"----------------------------------------------------------------------
+
+if !exists('g:lang_complete')
+    let g:lang_complete = ['async']
+
+endif
 "----------------------------------------------------------------------
 " 计算当前 vim-init 的子路径
 "----------------------------------------------------------------------
@@ -161,92 +177,6 @@ if index(g:bundle_group, 'basic') >= 0
 	" 翻译
 	Plug 'voldikss/vim-translator'
 
-	" 默认打开/关闭 
-    "   let g:rainbow_active = 1
-
-    " <Leader><F4> : 彩虹括号开关键
-    nmap <Leader><F4> :RainbowToggle<CR>
-
-
-	" 使用 ALT+E 来选择窗口
-	nmap <m-e> <Plug>(choosewin)
-
-	" 默认不显示 startify
-	let g:startify_disable_at_vimenter = 1
-
-    let g:startify_session_dir = '~/.vim/session'
-
-	" 使用 <space>ha 清除 errormarker 标注的错误
-	noremap <silent><space>ha :RemoveErrorMarkers<cr>
-
-    " vim-rt-format
-    " By default, it will be triggered by `ENTER` in insert mode.
-    " set this to 1 to use `CTRL+ENTER` instead, and keep the  
-    " default `ENTER` behavior unchanged.
-    let g:rtf_ctrl_enter = 0
-
-    " Enable formatting when leaving insert mode
-    let g:rtf_on_insert_leave = 1
-
-	" signify 调优
-	let g:signify_vcs_list = ['git', 'svn']
-	let g:signify_sign_add               = '+'
-	let g:signify_sign_delete            = '_'
-	let g:signify_sign_delete_first_line = '‾'
-	let g:signify_sign_change            = '~'
-	let g:signify_sign_changedelete      = g:signify_sign_change
-
-	" git 仓库使用 histogram 算法进行 diff
-	let g:signify_vcs_cmds = {
-			\ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
-			\}
-
-    if has('win32') || has('win64')
-        let g:gitgutter_git_executable = 'D:\ProSoftWare\Git\bin\git.exe'
-    endif
-
-    " 默认开启/关闭
-    let g:indentLine_enabled = 1
-
-    " 改变缩进对齐线
-    let g:indentLine_char = '|'
-
-    " 开启保存 undo 历史功能
-    set undodir=~/.cache/undodir
-    set undofile
-
-    " <Leader>ud : 调用 gundo 树
-    nnoremap <Leader>ud :UndotreeToggle<CR>
-
-    " <Leader>mt : 显示/隐藏 MiniBufExplorer 窗口
-    map <Leader>mt :MBEToggle<cr>
-
-    " GVim下buffer切换快捷键(ctrl + tab: 跳转后一个窗口; ctrl + shift + tab: 跳转前一个窗口)
-    map <C-Tab> :MBEbn<cr>
-    map <C-S-Tab> :MBEbp<cr>
-
-
-
-    " 默认注释分隔符后添加空格
-    let g:NERDSpaceDelims = 1
-
-    " 设置语言默认使用其备用分隔符
-    let g:NERDAltDelims_java = 1
-
-    " 用于美化多行注释紧凑语法
-    let g:NERDCompactSexyComs = 1
-
-    " 将对齐行注释分隔符对齐，而不是按照代码缩进
-    let g:NERDDefaultAlign = 'left'
-
-    " 许评论和反转空行（在评论区域时很有用）
-    let g:NERDCommentEmptyLines = 1
-
-    " 消注释时，启用修剪尾随空格
-    let g:NERDTrimTrailingWhitespace = 1
-
-    " 加自己的自定义格式或覆盖默认值
-    let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
 endif
 
 
@@ -276,9 +206,6 @@ if index(g:bundle_group, 'enhanced') >= 0
 	" 提供 gist 接口
 	Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
 	
-	" ALT_+/- 用于按分隔符扩大缩小 v 选区
-	map <m-=> <Plug>(expand_region_expand)
-	map <m--> <Plug>(expand_region_shrink)
 endif
 
 
@@ -296,37 +223,6 @@ if index(g:bundle_group, 'tags') >= 0
 	" 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
 	Plug 'skywind3000/gutentags_plus'
 
-	" 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
-	let g:gutentags_project_root = ['.root']
-	let g:gutentags_ctags_tagfile = '.tags'
-
-	" 默认生成的数据文件集中到 ~/.cache/tags 避免污染项目目录，好清理
-	let g:gutentags_cache_dir = expand('~/.cache/tags')
-
-	" 默认禁用自动生成
-	let g:gutentags_modules = [] 
-
-	" 如果有 ctags 可执行就允许动态生成 ctags 文件
-	if executable('ctags')
-		let g:gutentags_modules += ['ctags']
-	endif
-
-	" 如果有 gtags 可执行就允许动态生成 gtags 数据库
-	if executable('gtags') && executable('gtags-cscope')
-		let g:gutentags_modules += ['gtags_cscope']
-	endif
-
-	" 设置 ctags 的参数
-	let g:gutentags_ctags_extra_args = []
-	let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-	let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-	let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-	" 使用 universal-ctags 的话需要下面这行，请反注释
-	let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-
-	" 禁止 gutentags 自动链接 gtags 数据库
-	let g:gutentags_auto_add_gtags_cscope = 0
 endif
 
 
@@ -397,28 +293,6 @@ endif
 
 
 "----------------------------------------------------------------------
-" airline
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'airline') >= 0
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	let g:airline_left_sep = ''
-	let g:airline_left_alt_sep = ''
-	let g:airline_right_sep = ''
-	let g:airline_right_alt_sep = ''
-	let g:airline_powerline_fonts = 0
-	let g:airline_exclude_preview = 1
-	let g:airline_section_b = '%n'
-	let g:airline_theme='deus'
-	let g:airline#extensions#branch#enabled = 0
-	let g:airline#extensions#syntastic#enabled = 0
-	let g:airline#extensions#fugitiveline#enabled = 0
-	let g:airline#extensions#csv#enabled = 0
-	let g:airline#extensions#vimagit#enabled = 0
-endif
-
-
-"----------------------------------------------------------------------
 " NERDTree
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'nerdtree') >= 0
@@ -427,42 +301,13 @@ if index(g:bundle_group, 'nerdtree') >= 0
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     Plug 'PhilRunninger/nerdtree-visual-selection'
     Plug 'ryanoasis/vim-devicons'
-
-    " 设置NERDTree子窗口宽度
-    let NERDTreeWinSize = 32
-
-    " 设置NERDTree子窗口位置
-    let NERDTreeWinPos = "left"
-
-    " 显示隐藏文件
-    let NERDTreeShowHidden = 1
-
-    " 删除文件时自动删除文件对应 buffer
-    let NERDTreeAutoDeleteBuffer = 1
-	let g:NERDTreeMinimalUI = 1
-	let g:NERDTreeDirArrows = 1
-	let g:NERDTreeHijackNetrw = 0
-	noremap <space>nn :NERDTree<cr>
-	noremap <space>no :NERDTreeFocus<cr>
-	noremap <space>nm :NERDTreeMirror<cr>
-	noremap <space>nt :NERDTreeToggle<cr>
 endif
-
 
 "----------------------------------------------------------------------
 " LanguageTool 语法检查
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'grammer') >= 0
 	Plug 'rhysd/vim-grammarous'
-	noremap <space>rg :GrammarousCheck --lang=en-US --no-move-to-first-error --no-preview<cr>
-	map <space>rr <Plug>(grammarous-open-info-window)
-	map <space>rv <Plug>(grammarous-move-to-info-window)
-	map <space>rs <Plug>(grammarous-reset)
-	map <space>rx <Plug>(grammarous-close-info-window)
-	map <space>rm <Plug>(grammarous-remove-error)
-	map <space>rd <Plug>(grammarous-disable-rule)
-	map <space>rn <Plug>(grammarous-move-to-next-error)
-	map <space>rp <Plug>(grammarous-move-to-previous-error)
 endif
 
 "---------------------------------------------------------------------
@@ -486,70 +331,6 @@ endif
 if index(g:bundle_group, 'ale') >= 0
 	Plug 'w0rp/ale', { 'do': function('InstallRequiredForALE') }
 
-	" 设定延迟和提示信息
-	let g:ale_completion_delay = 500
-	let g:ale_echo_delay = 20
-	let g:ale_lint_delay = 500
-	let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-
-	" 设定检测的时机：normal 模式文字改变，或者离开 insert模式
-	" 禁用默认 INSERT 模式下改变文字也触发的设置，太频繁外，还会让补全窗闪烁
-	let g:ale_lint_on_text_changed = 'normal'
-	let g:ale_lint_on_insert_leave = 1
-
-	" 在 linux/mac 下降低语法检查程序的进程优先级（不要卡到前台进程）
-	if has('win32') == 0 && has('win64') == 0 && has('win32unix') == 0
-		let g:ale_command_wrapper = 'nice -n5'
-	endif
-
-	" 允许 airline 集成
-	"let g:airline#extensions#ale#enabled = 1
-
-	" 编辑不同文件类型需要的语法检查器
-	let g:ale_linters = {
-				\ 'c': ['gcc', 'clang'], 
-				\ 'cpp': ['gcc', 'clang'], 
-				\ 'python': ['flake8', 'pylint'], 
-				\ 'lua': ['luac'], 
-				\ 'go': ['go build', 'gofmt'],
-				\ 'java': ['javac'],
-				\ 'javascript': ['eslint'],
-				\ 'vue': ['eslint', 'vls'],
-				\ }
-
-	let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
-
-	" 获取 pylint, flake8 的配置文件，在 vim-init/tools/conf 下面
-	function s:lintcfg(name)
-		let conf = s:path('tools/conf/')
-		let path1 = conf . a:name
-
-	    let path2 = expand('~/.vim/linter/'. a:name)
-
-        if filereadable(path2)
-			return path2
-		endif
-		return shellescape(filereadable(path2)? path2 : path1)
-	endfunc
-
-	" 设置 flake8/pylint 的参数
-	let g:ale_python_flake8_options = '--conf='.s:lintcfg('flake8.conf')
-	let g:ale_python_pylint_options = '--rcfile='.s:lintcfg('pylint.conf')
-	let g:ale_python_pylint_options .= ' --disable=W'
-	let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-	let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
-	let g:ale_c_cppcheck_options = ''
-	let g:ale_cpp_cppcheck_options = ''
-
-	let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
-
-	" 如果没有 gcc 只有 clang 时（FreeBSD）
-	if executable('gcc') == 0 && executable('clang')
-		let g:ale_linters.c += ['clang']
-		let g:ale_linters.cpp += ['clang']
-	endif
-
-
 endif
 
 
@@ -559,132 +340,16 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'echodoc') >= 0
 	Plug 'Shougo/echodoc.vim'
-	set noshowmode
-
-    " To use echodoc, you must increase 'cmdheight' value.
-    set cmdheight=2
-
-    " Or, you could use vim's popup window feature.
-    let g:echodoc#enable_at_startup = 1
-    let g:echodoc#type = 'popup'
-
-    " To use a custom highlight for the popup window,
-    " change Pmenu to your highlight group
-    highlight link EchoDocPopup Pmenu
 endif
-
 
 "----------------------------------------------------------------------
 " LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'leaderf') >= 0
+if index(g:bundle_group, 'leaderf') >= 0 && (has('python') || has('python3'))
+
 	" 如果 vim 支持 python 则启用  Leaderf
-	if has('python') || has('python3')
-		Plug 'Yggdroot/LeaderF',{ 'do': ':LeaderfInstallCExtension' }
-        Plug 'skywind3000/Leaderf-snippet'
-
-       " popup mode
-       let g:Lf_WindowPosition = 'popup'
-       let g:Lf_PreviewInPopup = 1
-
-		" CTRL+p 打开文件模糊匹配
-		let g:Lf_ShortcutF = '<c-p>'
-
-		" ALT+n 打开 buffer 模糊匹配
-		let g:Lf_ShortcutB = '<m-n>'
-
-		" CTRL+n 打开最近使用的文件 MRU，进行模糊匹配
-		noremap <c-n> :LeaderfMru<cr>
-
-		" ALT+p 打开函数列表，按 i 进入模糊匹配，ESC 退出
-		noremap <m-p> :LeaderfFunction!<cr>
-
-		" ALT+SHIFT+p 打开 tag 列表，i 进入模糊匹配，ESC退出
-		noremap <m-P> :LeaderfBufTag!<cr>
-
-		" ALT+n 打开 buffer 列表进行模糊匹配
-		noremap <m-n> :LeaderfBuffer<cr>
-
-		" ALT+m 全局 tags 模糊匹配
-		noremap <m-m> :LeaderfTag<cr>
-
-		" 最大历史文件保存 2048 个
-		let g:Lf_MruMaxFiles = 2048
-
-		" ui 定制
-		let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-
-		" 如何识别项目目录，从当前文件目录向父目录递归知道碰到下面的文件/目录
-		let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-		let g:Lf_WorkingDirectoryMode = 'Ac'
-		let g:Lf_WindowHeight = 0.30
-		let g:Lf_CacheDirectory = expand('~/.cache')
-
-		" 显示绝对路径
-		let g:Lf_ShowRelativePath = 0
-
-		" 隐藏帮助
-		let g:Lf_HideHelp = 1
-
-		" 模糊匹配忽略扩展名
-		let g:Lf_WildIgnore = {
-					\ 'dir': ['.svn','.git','.hg'],
-					\ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
-					\ }
-
-		" MRU 文件忽略扩展名
-		let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.bak', '*.tmp', '*.dll']
-		let g:Lf_StlColorscheme = 'powerline'
-
-		" 禁用 function/buftag 的预览功能，可以手动用 p 预览
-		let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
-
-		" 使用 ESC 键可以直接退出 leaderf 的 normal 模式
-		let g:Lf_NormalMap = {
-				\ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-				\ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
-				\ "Mru": [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
-				\ "Tag": [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
-				\ "BufTag": [["<ESC>", ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
-				\ "Function": [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
-				\ }
-
-       let g:Lf_PreviewResult = get(g:, 'Lf_PreviewResult', {})
-       let g:Lf_PreviewResult.snippet = 1
-
-	else
-		" 不支持 python ，使用 CtrlP 代替
-		Plug 'ctrlpvim/ctrlp.vim'
-
-		" 显示函数列表的扩展插件
-		Plug 'tacahiroy/ctrlp-funky'
-
-		" 忽略默认键位
-		let g:ctrlp_map = ''
-
-		" 模糊匹配忽略
-		let g:ctrlp_custom_ignore = {
-		  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-		  \ 'file': '\v\.(exe|so|dll|mp3|wav|sdf|suo|mht)$',
-		  \ 'link': 'some_bad_symbolic_links',
-		  \ }
-
-		" 项目标志
-		let g:ctrlp_root_markers = ['.project', '.root', '.svn', '.git']
-		let g:ctrlp_working_path = 0
-
-		" CTRL+p 打开文件模糊匹配
-		noremap <c-p> :CtrlP<cr>
-
-		" CTRL+n 打开最近访问过的文件的匹配
-		noremap <c-n> :CtrlPMRUFiles<cr>
-
-		" ALT+p 显示当前文件的函数列表
-		noremap <m-p> :CtrlPFunky<cr>
-
-		" ALT+n 匹配 buffer
-		noremap <m-n> :CtrlPBuffer<cr>
-	endif
+	Plug 'Yggdroot/LeaderF',{ 'do': ':LeaderfInstallCExtension' }
+    Plug 'skywind3000/Leaderf-snippet'
 endif
 
 "----------------------------------------------------------------------
@@ -693,8 +358,6 @@ endif
 if index(g:bundle_group, 'web') >= 0
 	" js 在 html页面中缩进
 	Plug 'othree/html5.vim'
-
-	Plug 'AndrewRadev/tagalong.vim'
 
 	" HTML书写快捷键
     Plug 'mattn/emmet-vim'
@@ -713,37 +376,12 @@ if index(g:bundle_group, 'web') >= 0
 		\ 'do': 'yarn install --frozen-lockfile --production',
 		\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
-	let g:tagalong_filetypes = ['html', 'vue']
-
-	" ctrl + z + , 键触发
-    let g:user_emmet_leader_key = '<C-Z>'
-
-    " 启用JSDocs的语法高亮
-    let g:javascript_plugin_jsdoc = 1
-
-    " 为NGDocs启用一些额外的语法高亮显示,需要启用JSDoc插件
-    let g:javascript_plugin_ngdoc = 1
-
-    " 启用Flow的语法突出显示
-    let g:javascript_plugin_flow = 1
-
-	" 自动格式化
-	let g:prettier#autoformat = 1
-	let g:prettier#autoformat_require_pragma = 0
-
-    augroup javascript_folding
-        au!
-        au FileType javascript setlocal foldmethod=syntax
-    augroup END
 endif
 "----------------------------------------------------------------------
 " Java
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'java') >= 0
     Plug 'artur-shaik/vim-javacomplete2', {'for': ['java', 'jsp']}
-
-    " 使用vim自带补全快捷键补全
-    autocmd FileType java setlocal omnifunc=javacomplete#Complete
 endif
 
 
@@ -752,16 +390,6 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'lisp') >= 0
     Plug 'vlime/vlime', {'rtp': 'vim/'}
-       let g:vlime_cl_impl = "sbcl"
-
-       if has('win32') || has('win64') 
-        function! VlimeBuildServerCommandFor_sbcl(vlime_loader, vlime_eval)
-           return ["D:\\ProSoftWare\\Steel Bank Common Lisp\\sbcl.exe",
-                       \ "--load", "C:\\Users\\Dell\\quicklisp\\setup.lisp",
-                       \ "--load", a:vlime_loader,
-                       \ "--eval", a:vlime_eval]
-        endfunction
-       endif
 endif
 
 "----------------------------------------------------------------------
@@ -773,7 +401,6 @@ if index(g:bundle_group, 'markdown') >= 0
     Plug 'iamcco/mathjax-support-for-mkdp'
 	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
     Plug 'mzlogin/vim-markdown-toc'
-
 endif
 
 "----------------------------------------------------------------------
@@ -783,8 +410,6 @@ if index(g:bundle_group, 'asyncRun') >= 0
     Plug 'skywind3000/asynctasks.vim'
     Plug 'skywind3000/asyncrun.extra'
     Plug 'skywind3000/asyncrun.vim'
-
-    let g:asyncrun_open = 6
 endif
 
 "----------------------------------------------------------------------
@@ -814,89 +439,63 @@ endif
     endfunction	
 
 
-if index(g:bundle_group, 'async') >= 0
-
+if index(g:bundle_group, 'asyncComplete') >= 0
+	
+	" 词典补全
     Plug 'skywind3000/vim-dict'
     Plug 'skywind3000/vim-auto-popmenu'
 
-    " 异步补全
-    Plug 'prabirshrestha/asyncomplete.vim'
-    Plug 'prabirshrestha/async.vim'
-    Plug 'prabirshrestha/vim-lsp', { 'do': function('InstallRequirediForAsync') }
-    Plug 'prabirshrestha/asyncomplete-lsp.vim'
-    Plug 'mattn/vim-lsp-settings'
-	Plug 'rhysd/vim-lsp-ale'
+	" Language Serve
+	if index(g:lang_serve, 'vim-lsp') >= 0
+		Plug 'prabirshrestha/vim-lsp', { 'do': function('InstallRequirediForAsync') }
+		Plug 'mattn/vim-lsp-settings'
+	endif
 
-    " TypeScript
-    " Plug 'ryanolsonx/vim-lsp-typescript'
-
-    " Omnifunc 
-    Plug 'yami-beta/asyncomplete-omni.vim'
-
-    " File
-    Plug 'prabirshrestha/asyncomplete-file.vim'
-
-     " 缓冲区
-    Plug 'prabirshrestha/asyncomplete-buffer.vim'
-
-    " HTML补全
-    Plug 'prabirshrestha/asyncomplete-emmet.vim'
-    Plug 'laixintao/asyncomplete-gitcommit'
-
-    if has('win32') || has('win64')
-        Plug 'keremc/asyncomplete-clang.vim'
-    else
-        " Plug 'wellle/tmux-complete.vim'
-    endif
-
-    " 片段补全
-    if has('python3')
-        Plug 'SirVer/ultisnips'
-        Plug 'honza/vim-snippets'
-        Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-    endif
-
-    " 自动生成tags
-    if executable('ctags')
-        Plug 'prabirshrestha/asyncomplete-tags.vim'
-    endif
-
-    " enable this plugin for filetypes, '*' for all files.
-    let g:apc_enable_ft = {'text':1, 'markdown':1, 'php':1}
-
-    " source for dictionary, current or other loaded buffers, see ':help cpt'
-    set cpt=.,k,w,b
-
-    " don't select the first item.
-    set completeopt=menu,menuone,noselect
-
-    " suppress annoy messages.
-    set shortmess+=c
-
-    " 删除重复项
-    let g:asyncomplete_remove_duplicates = 1
-
-    " 模糊智能完成
-    let g:asyncomplete_smart_completion = 1  
-    let g:asyncomplete_auto_popup = 1
-	let g:lsp_settings_servers_dir = '~/.vim/lsp-setting'
-
-    " 窗口预览
-    set completeopt+=preview
-
-    " 完成后自动关闭窗口
-    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif    
-
-    let $GTAGSLABEL = 'native-pygments'
-
-    if has('win32') || has('win64')
-        let $GTAGSCONF = 'D:\ProSoftWare\Dependence\Globe\share\gtags\gtags.conf'
-    else
-        let $GTAGSCONF = '/usr/share/gtags/gtags.conf'
+	if index(g:lang_serve, 'ale') >= 0
+		Plug 'rhysd/vim-lsp-ale'
 	endif
 
 
 
+	" Language Complete
+	if index(g:lang_complete, 'async') >= 0
+		Plug 'prabirshrestha/asyncomplete.vim'
+		Plug 'prabirshrestha/async.vim'
+        Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+		" Omnifunc 
+		Plug 'yami-beta/asyncomplete-omni.vim'
+
+		" TypeScript
+		" Plug 'ryanolsonx/vim-lsp-typescript'
+
+		" File
+		Plug 'prabirshrestha/asyncomplete-file.vim'
+
+		" 缓冲区
+		Plug 'prabirshrestha/asyncomplete-buffer.vim'
+
+		" HTML补全
+		Plug 'prabirshrestha/asyncomplete-emmet.vim'
+    
+		" Git
+		Plug 'laixintao/asyncomplete-gitcommit'
+
+		" Tmux
+		"Plug 'wellle/tmux-complete.vim'
+
+		" 片段补全
+		if has('python3')
+			Plug 'SirVer/ultisnips'
+			Plug 'honza/vim-snippets'
+			Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+		endif
+
+		" 自动生成tags
+		if executable('ctags')
+			Plug 'prabirshrestha/asyncomplete-tags.vim'
+		endif
+	endif
 endif
 
 " 安装gtags(global)和universal ctags  (pip install pygments)
@@ -910,21 +509,6 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'vista') >= 0
     Plug 'liuchengxu/vista.vim'
-
-    " <Leader><F3> : 设置显示/隐藏标签列表子窗口的快捷键
-    nnoremap <Leader><F3> :Vista!!<CR>
-
-    function! NearestMethodOrFunction() abort
-        return get(b:, 'vista_nearest_method_or_function', '')
-    endfunction
-
-    set statusline+=%{NearestMethodOrFunction()}
-
-    " By default vista.vim never run if you don't call it explicitly.
-
-    " If you want to show the nearest function in your statusline automatically,
-    " you can add the following line to your vimrc
-    autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 endif
 
 "----------------------------------------------------------------------
@@ -935,21 +519,6 @@ if index(g:bundle_group, 'incsearch') >= 0
     Plug 'haya14busa/incsearch-fuzzy.vim'
     Plug 'haya14busa/incsearch-easymotion.vim'
 
-    let g:incsearch#auto_nohlsearch = 1
-    map /  <Plug>(incsearch-forward)
-    map ?  <Plug>(incsearch-backward)
-    map g/ <Plug>(incsearch-stay)
-    map n  <Plug>(incsearch-nohl-n)
-    map N  <Plug>(incsearch-nohl-N)
-    map *  <Plug>(incsearch-nohl-*)
-    map #  <Plug>(incsearch-nohl-#)
-    map g* <Plug>(incsearch-nohl-g*)
-    map g# <Plug>(incsearch-nohl-g#)
-
-    map z/ <Plug>(incsearch-easymotion-/)
-    map z? <Plug>(incsearch-easymotion-?)
-    map zg/ <Plug>(incsearch-easymotion-stay)
-
 endif
 
 "----------------------------------------------------------------------
@@ -957,17 +526,6 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'leetcode') >= 0
     Plug 'ianding1/leetcode.vim'
-
-    "中国区leetcode"
-    let g:leetcode_china=1  
-    let g:leetcode_username='1414229513@qq.com'
-    let g:leetcode_password='1997417a.s.l.'
-
-    " 默认使用python3
-    let g:leetcode_solution_filetype='python3'
-
-    " 登录leetcode-cn.com的浏览器"
-    let g:leetcode_browser='edge'
 endif
 
 "----------------------------------------------------------------------
