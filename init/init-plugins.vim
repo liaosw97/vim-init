@@ -317,6 +317,7 @@ endif
 "----------------------------------------------------------------------
 	" 自动下载对应的插件
 	function! InstallRequiredForALE(info)
+		if has('win32') || has('win64')
 			" python
 			if index(g:bundle_group, 'python') >= 0
 				!pip install flake8
@@ -326,6 +327,17 @@ endif
 			if index(g:bundle_group, 'web') >= 0 
 				!npm install -g eslint eslint-plugin-vue
 			endif
+		else
+			" python
+			if index(g:bundle_group, 'python') >= 0
+				!sudo pip install flake8
+			endif
+
+			" JavaScript
+			if index(g:bundle_group, 'web') >= 0 
+				!sudo npm install -g eslint eslint-plugin-vue
+			endif
+		endif
 	endfunction	
 
 
@@ -401,7 +413,7 @@ if index(g:bundle_group, 'markdown') >= 0
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
     Plug 'iamcco/mathjax-support-for-mkdp'
-	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
     Plug 'mzlogin/vim-markdown-toc'
 endif
 
@@ -420,6 +432,7 @@ endif
 
 	" 自动下载对应的插件
 	function! InstallRequirediForAsync(info)
+		if has('win32') || has('win64')
 			" python
 			if index(g:bundle_group, 'python') >= 0
 				!pip install python-language-server
@@ -445,6 +458,34 @@ endif
 
 			" HTML
 			!npm install --global vscode-html-languageserver-bin
+		else
+			" python
+			if index(g:bundle_group, 'python') >= 0
+				!sudo pip install python-language-server
+			endif
+		
+			" JavaScript
+			if index(g:bundle_group, 'web') >= 0 
+				!sudo npm install -g typescript typescript-language-server
+			endif
+
+			if executable('ctags')
+				!sudo pip install pygments
+			endif
+
+			" vim
+			!sudo npm install -g vim-language-server
+			
+			" bash
+			!sudo npm install -g bash-language-server
+
+			" CSS
+			!sudo npm install -g vscode-css-languageserver-bin
+
+			" HTML
+			!sudo npm install --global vscode-html-languageserver-bin
+
+		endif
 
 		endfunction	
 
