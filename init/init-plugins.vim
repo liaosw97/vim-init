@@ -35,6 +35,8 @@ endif
 if !exists('g:lang_serve')
     let g:lang_serve = ['vim-lsp']
     let g:lang_serve += ['ale']
+	"let g:lang_serve += ['vim-lsc']
+
 endif
 
 "----------------------------------------------------------------------
@@ -322,7 +324,7 @@ endif
 
 			" JavaScript
 			if index(g:bundle_group, 'web') >= 0 
-				!npm install -g eslint eslint-plugin-vue vls
+				!npm install -g eslint eslint-plugin-vue
 			endif
 	endfunction	
 
@@ -432,7 +434,7 @@ endif
 				!pip install pygments
 			endif
 
-				" vim
+			" vim
 			!npm install -g vim-language-server
 			
 			!npm install -g bash-language-server
@@ -454,6 +456,13 @@ if index(g:bundle_group, 'asyncComplete') >= 0
 	if index(g:lang_serve, 'ale') >= 0
 		Plug 'rhysd/vim-lsp-ale'
 	endif
+
+
+
+	if index(g:lang_serve, 'vim-lsc') 
+		Plug 'natebosch/vim-lsc'
+	endif
+
 
 
 
@@ -480,6 +489,7 @@ if index(g:bundle_group, 'asyncComplete') >= 0
     
 		" Git
 		Plug 'laixintao/asyncomplete-gitcommit'
+
 
 		" Tmux
 		"Plug 'wellle/tmux-complete.vim'

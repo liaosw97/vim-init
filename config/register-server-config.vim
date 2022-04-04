@@ -25,6 +25,7 @@ if !exists('g:serve_base')
 	let g:serve_base += ['Lisp']
 "	let g:serve_base += ['Vim']  " Windows 下冲突, 该模块无法使用
 	let g:serve_base += ['Bash']
+	let g:serve_base += ['ale']
    endif
 "
 "
@@ -234,3 +235,16 @@ if index(g:serve_base, 'Bash') >= 0 && executable('bash-language-server')
 		\ })
 	augroup END
 endif
+
+"----------------------------------------------------------------------
+" Ale
+"----------------------------------------------------------------------
+
+if index(g:serve_base, 'ale') >= 0
+
+  " Use ALE's function for asyncomplete defaults
+  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ale#get_source_options({
+      \ 'priority': 10, 
+	  \ }))
+endif
+

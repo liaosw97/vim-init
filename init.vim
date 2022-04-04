@@ -66,7 +66,7 @@ LoadScript config/web-config.vim
 LoadScript config/language-config.vim
 
 " vim-lsp 注册语言Server
-LoadScript config/language-server-config.vim
+LoadScript config/register-server-config.vim
 
 LoadScript config/tools-config.vim
 

@@ -23,7 +23,8 @@ endfunc
 " language serve 
 "----------------------------------------------------------------------
 
-
+let g:ale_completion_enabled = 1
+set omnifunc=ale#completion#OmniFunc
 
 "----------------------------------------------------------------------
 " lint
