@@ -437,8 +437,16 @@ endif
 			" vim
 			!npm install -g vim-language-server
 			
+			" bash
 			!npm install -g bash-language-server
-    endfunction	
+
+			" CSS
+			!npm install -g vscode-css-languageserver-bin
+
+			" HTML
+			!npm install --global vscode-html-languageserver-bin
+
+		endfunction	
 
 
 if index(g:bundle_group, 'asyncComplete') >= 0

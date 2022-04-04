@@ -170,14 +170,26 @@ if index(g:serve_base, 'HTML') >= 0
 		\ 'whitelist': ['html'],
 		\ 'completor': function('asyncomplete#sources#emmet#completor'),
 		\ }))
+
+	if executable('html-languageserver')
+		au User lsp_setup call lsp#register_server({
+		\ 'name': 'html-languageserver',
+		\ 'cmd': {server_info->[&shell, &shellcmdflag, 'html-languageserver --stdio']},
+		\ 'whitelist': ['html'],
+		\ })
+endif
 endif
 
 "----------------------------------------------------------------------
 " CSS 
 "----------------------------------------------------------------------
 
-if index(g:serve_base, 'CSS') >= 0 
-
+if index(g:serve_base, 'CSS') >= 0 && executable('css-languageserver')
+     au User lsp_setup call lsp#register_server({
+        \ 'name': 'css-languageserver',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver --stdio']},
+        \ 'whitelist': ['css', 'less', 'sass'],
+        \ })
 endif
 
 "----------------------------------------------------------------------
