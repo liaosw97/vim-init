@@ -56,4 +56,4 @@ else
     let $GTAGSCONF = '/usr/share/gtags/gtags.conf'
 endif
 
-let g:asyncomplete_log_file = expand('~/.cache/log/asyncomplete.log')
+" let g:asyncomplete_log_file = expand('~/.cache/log/asyncomplete.log')

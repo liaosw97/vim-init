@@ -13,8 +13,12 @@
 " vim-lsp 
 "----------------------------------------------------------------------
 
-let g:lsp_log_verbose = 1
-let g:lsp_log_file = expand('~/.cache/log/vim-lsp.log')
+" 记录日志
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = expand('~/.cache/log/vim-lsp.log')
+
+
+" 服务器安装位置
 let g:lsp_settings_servers_dir = '~/.vim/lsp-setting'
 
 "----------------------------------------------------------------------

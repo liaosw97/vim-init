@@ -14,7 +14,7 @@
 " 功能模块, 默认情况下的分组，可以再前面覆盖之
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
-    let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
+    let g:bundle_group = ['basic', 'enhanced', 'filetypes', 'textobj']
     let g:bundle_group += ['tags', 'nerdtree', 'ale', 'echodoc']
     let g:bundle_group += ['leaderf']
     let g:bundle_group += ['web']
@@ -26,6 +26,8 @@ if !exists('g:bundle_group')
     let g:bundle_group += ['incsearch']
     let g:bundle_group += ['leetcode']
 	let g:bundle_group += ['python']
+	let g:bundle_group += ['zhInput'] " 中文输入法
+	let g:bundle_group += ['debug']
 endif
 
 "----------------------------------------------------------------------
@@ -35,8 +37,6 @@ endif
 if !exists('g:lang_serve')
     let g:lang_serve = ['vim-lsp']
     let g:lang_serve += ['ale']
-	"let g:lang_serve += ['vim-lsc']
-
 endif
 
 "----------------------------------------------------------------------
@@ -382,6 +382,10 @@ if index(g:bundle_group, 'web') >= 0
     " JavaScript语法突出显示和改进的缩进
     Plug 'pangloss/vim-javascript', {'for': ['html', 'js']}
 
+	" jsx语法高亮
+	Plug 'yuezk/vim-js'
+	Plug 'maxmellon/vim-jsx-pretty'
+
 	" VUE
 	Plug 'posva/vim-vue'
 
@@ -506,15 +510,6 @@ if index(g:bundle_group, 'asyncComplete') >= 0
 		Plug 'rhysd/vim-lsp-ale'
 	endif
 
-
-
-	if index(g:lang_serve, 'vim-lsc') 
-		Plug 'natebosch/vim-lsc'
-	endif
-
-
-
-
 	" Language Complete
 	if index(g:lang_complete, 'async') >= 0
 		Plug 'prabirshrestha/asyncomplete.vim'
@@ -554,6 +549,7 @@ if index(g:bundle_group, 'asyncComplete') >= 0
 		if executable('ctags')
 			Plug 'prabirshrestha/asyncomplete-tags.vim'
 		endif
+
 	endif
 endif
 
@@ -592,6 +588,25 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'python') >= 0
     Plug 'sillybun/vim-repl'
+endif
+
+"----------------------------------------------------------------------
+" 中文输入法
+"----------------------------------------------------------------------
+
+if index(g:bundle_group, 'zhInput') >= 0
+	Plug 'ZSaberLv0/ZFVimIM'
+	Plug 'ZSaberLv0/ZFVimJob' " 可选, 用于提升词库加载性能
+	Plug 'ZSaberLv0/ZFVimGitUtil' " 可选, 如果你希望定期自动清理词库 push 历史
+	Plug 'liaosw97/ZFVimIM_pinyin_base' " 你的词库
+	Plug 'ZSaberLv0/ZFVimIM_openapi' " 可选, 百度云输入法
+endif
+
+"----------------------------------------------------------------------
+" debug
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'debug') >= 0
+	Plug 'puremourningi/vimspector'
 endif
 
 "----------------------------------------------------------------------

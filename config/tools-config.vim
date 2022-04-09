@@ -247,3 +247,24 @@ let g:leetcode_solution_filetype='python3'
 
 " 登录leetcode-cn.com的浏览器"
 let g:leetcode_browser='edge'
+
+"----------------------------------------------------------------------
+" 中文输入法 
+"----------------------------------------------------------------------
+
+function! s:myLocalDb()
+    let db = ZFVimIM_dbInit({
+                \   'name' : 'YourDb',
+                \ })
+
+    call ZFVimIM_cloudRegister({
+                \   'mode' : 'local',
+                \   'dbId' : db['dbId'],
+                \   'repoPath' : 'C:\\Users\\Dell\\.vim\\bundle\\ZFVimIM_pinyin_base\\misc',  
+                \   'dbFile' : '/pinyin.txt', 
+				\   'dbCountFile' : '/pinyin_count.txt', 
+                \ })
+endfunction
+autocmd User ZFVimIM_event_OnDbInit call s:myLocalDb()
+
+let g:ZFVimIM_cachePath=$HOME.'/.cache/ZFVimIM'

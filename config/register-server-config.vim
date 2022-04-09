@@ -167,7 +167,7 @@ if index(g:serve_base, 'HTML') >= 0
 	" Emmet
     au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#emmet#get_source_options({
 		\ 'name': 'emmet',
-		\ 'whitelist': ['html'],
+		\ 'whitelist': ['html', 'js', 'vue'],
 		\ 'completor': function('asyncomplete#sources#emmet#completor'),
 		\ }))
 
@@ -175,7 +175,7 @@ if index(g:serve_base, 'HTML') >= 0
 		au User lsp_setup call lsp#register_server({
 		\ 'name': 'html-languageserver',
 		\ 'cmd': {server_info->[&shell, &shellcmdflag, 'html-languageserver --stdio']},
-		\ 'whitelist': ['html'],
+		\ 'whitelist': ['html', 'js', 'vue'],
 		\ })
 endif
 endif
@@ -188,7 +188,7 @@ if index(g:serve_base, 'CSS') >= 0 && executable('css-languageserver')
      au User lsp_setup call lsp#register_server({
         \ 'name': 'css-languageserver',
         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver --stdio']},
-        \ 'whitelist': ['css', 'less', 'sass'],
+        \ 'whitelist': ['css', 'less', 'sass', 'html', 'vue'],
         \ })
 endif
 

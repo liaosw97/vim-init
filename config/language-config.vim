@@ -17,7 +17,7 @@ let g:vlime_cl_impl = "sbcl"
 
 if has('win32') || has('win64') 
  function! VlimeBuildServerCommandFor_sbcl(vlime_loader, vlime_eval)
-    return ["D:\\ProSoftWare\\Steel Bank Common Lisp\\sbcl.exe",
+    return ["D:\\ProSoftWare\\SBCL\\sbcl.exe",
                 \ "--load", "C:\\Users\\Dell\\quicklisp\\setup.lisp",
                 \ "--load", a:vlime_loader,
                 \ "--eval", a:vlime_eval]
