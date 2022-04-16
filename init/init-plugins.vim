@@ -428,6 +428,7 @@ if index(g:bundle_group, 'asyncRun') >= 0
     Plug 'skywind3000/asynctasks.vim'
     Plug 'skywind3000/asyncrun.extra'
     Plug 'skywind3000/asyncrun.vim'
+	Plug 'pedsm/sprint'
 endif
 
 "----------------------------------------------------------------------
@@ -491,7 +492,7 @@ endif
 
 		endif
 
-		endfunction	
+	endfunction	
 
 
 if index(g:bundle_group, 'asyncComplete') >= 0
@@ -499,6 +500,8 @@ if index(g:bundle_group, 'asyncComplete') >= 0
 	" 词典补全
     Plug 'skywind3000/vim-dict'
     Plug 'skywind3000/vim-auto-popmenu'
+
+	Plug 'mityu/vim-wispath'
 
 	" Language Serve
 	if index(g:lang_serve, 'vim-lsp') >= 0
@@ -523,7 +526,7 @@ if index(g:bundle_group, 'asyncComplete') >= 0
 		" Plug 'ryanolsonx/vim-lsp-typescript'
 
 		" File
-		Plug 'prabirshrestha/asyncomplete-file.vim'
+		Plug 'liaosw97/asyncomplete-file.vim'
 
 		" 缓冲区
 		Plug 'prabirshrestha/asyncomplete-buffer.vim'
@@ -606,7 +609,7 @@ endif
 " debug
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'debug') >= 0
-	Plug 'puremourningi/vimspector'
+	Plug 'puremourning/vimspector'
 endif
 
 "----------------------------------------------------------------------
