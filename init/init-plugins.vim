@@ -391,8 +391,8 @@ if index(g:bundle_group, 'web') >= 0
 
 	" post install (yarn install | npm install) then load plugin only for editing supported files
 	Plug 'prettier/vim-prettier', {
-		\ 'do': 'yarn install --frozen-lockfile --production',
-		\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+		\ 'do': 'npm install --frozen-lockfile --production',
+		\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html', 'xml'] }
 
 endif
 "----------------------------------------------------------------------
@@ -417,7 +417,7 @@ if index(g:bundle_group, 'markdown') >= 0
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
     Plug 'iamcco/mathjax-support-for-mkdp'
-	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install' }
     Plug 'mzlogin/vim-markdown-toc'
 endif
 

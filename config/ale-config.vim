@@ -58,7 +58,8 @@ let g:ale_linters = {
 		\ 'go': ['go build', 'gofmt'],
 		\ 'java': ['javac'],
 		\ 'javascript': ['eslint'],
-		\ 'vue': ['eslint', 'vls'],
+		\ 'vue': ['eslint', 'volar'],
+		\ 'typescript': ['eslint', 'typescript'],
 		\ }
 
 let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
