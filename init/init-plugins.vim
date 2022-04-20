@@ -304,9 +304,7 @@ if index(g:bundle_group, 'nerdtree') >= 0
 	Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
     Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-	Plug 'PhilRunninger/nerdtree-buffer-ops'
     Plug 'PhilRunninger/nerdtree-visual-selection'
-	Plug 'scrooloose/nerdtree-project-plugin'
     Plug 'ryanoasis/vim-devicons'
 endif
 
