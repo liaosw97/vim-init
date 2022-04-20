@@ -127,7 +127,7 @@ endif
 " UltiSnips
 "----------------------------------------------------------------------
 
-if index(g:serve_base, 'UltiSnips') >= 0 && executable('python3')
+if index(g:serve_base, 'UltiSnips') >= 0 && has('python3')
 	
     let g:UltiSnipsExpandTrigger="<c-z>"
     call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({

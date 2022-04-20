@@ -207,7 +207,10 @@ if index(g:bundle_group, 'enhanced') >= 0
 
 	" 提供 gist 接口
 	Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
-	
+
+	" sql 支持
+	Plug 'tpope/vim-dadbod'	
+
 endif
 
 
@@ -301,7 +304,9 @@ if index(g:bundle_group, 'nerdtree') >= 0
 	Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
     Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+	Plug 'PhilRunninger/nerdtree-buffer-ops'
     Plug 'PhilRunninger/nerdtree-visual-selection'
+	Plug 'scrooloose/nerdtree-project-plugin'
     Plug 'ryanoasis/vim-devicons'
 endif
 
