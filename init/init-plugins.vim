@@ -381,6 +381,7 @@ if index(g:bundle_group, 'web') >= 0
 
     " css语法高亮
     Plug 'ap/vim-css-color', {'for': ['html', 'css']}
+	Plug 'hail2u/vim-css3-syntax'
 
     " JavaScript语法突出显示和改进的缩进
     Plug 'pangloss/vim-javascript', {'for': ['html', 'js']}
@@ -397,6 +398,7 @@ if index(g:bundle_group, 'web') >= 0
 		\ 'do': 'npm install --frozen-lockfile --production',
 		\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html', 'xml'] }
 
+	Plug 'alvan/vim-closetag'
 endif
 "----------------------------------------------------------------------
 " Java
@@ -540,6 +542,12 @@ if index(g:bundle_group, 'asyncComplete') >= 0
 		" Git
 		Plug 'laixintao/asyncomplete-gitcommit'
 
+		" tabline
+		if has('win32') || has('win64')
+			Plug 'kitagry/asyncomplete-tabnine.vim', { 'do': 'powershell -executionpolicy bypass -File install.ps1' }
+		else
+			Plug 'kitagry/asyncomplete-tabnine.vim', { 'do': './install.sh' }
+		endif
 
 		" Tmux
 		"Plug 'wellle/tmux-complete.vim'
