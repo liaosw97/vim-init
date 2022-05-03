@@ -179,6 +179,10 @@ if index(g:bundle_group, 'basic') >= 0
 	" 翻译
 	Plug 'voldikss/vim-translator'
 
+	" 统计工作量
+	Plug 'wakatime/vim-wakatime'
+
+
 endif
 
 

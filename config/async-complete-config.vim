@@ -51,7 +51,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 let $GTAGSLABEL = 'native-pygments'
 
 if has('win32') || has('win64')
-    let $GTAGSCONF = 'D:\ProSoftWare\Dependence\Globe\share\gtags\gtags.conf'
+    let $GTAGSCONF = 'D:\ProSoftWare\Scoop\apps\global\6.6.8\share\gtags\gtags.conf'
 else
     let $GTAGSCONF = '/usr/share/gtags/gtags.conf'
 endif
