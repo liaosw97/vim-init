@@ -201,7 +201,7 @@ if index(g:bundle_group, 'enhanced') >= 0
 	Plug 'asins/vim-dict'
 
 	" 使用 :FlyGrep 命令进行实时 grep
-	Plug 'wsdjeg/FlyGrep.vim'
+	Plug 'liaosw97/FlyGrep.vim'
 
 	" 使用 :CtrlSF 命令进行模仿 sublime 的 grep
 	Plug 'dyng/ctrlsf.vim'
