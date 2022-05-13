@@ -371,6 +371,10 @@ if index(g:bundle_group, 'leaderf') >= 0 && (has('python') || has('python3'))
 	" 如果 vim 支持 python 则启用  Leaderf
 	Plug 'Yggdroot/LeaderF',{ 'do': ':LeaderfInstallCExtension' }
     Plug 'skywind3000/Leaderf-snippet'
+	
+
+	Plug 'junegunn/fzf'
+	Plug 'junegunn/fzf.vim'
 endif
 
 "----------------------------------------------------------------------
