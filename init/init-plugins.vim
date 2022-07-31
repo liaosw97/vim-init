@@ -350,7 +350,7 @@ endif
 
 
 if index(g:bundle_group, 'ale') >= 0
-	Plug 'w0rp/ale', { 'do': function('InstallRequiredForALE') }
+	Plug 'dense-analysis/ale', { 'do': function('InstallRequiredForALE') }
 
 endif
 
@@ -409,12 +409,6 @@ if index(g:bundle_group, 'web') >= 0
 	Plug 'alvan/vim-closetag'
 endif
 "----------------------------------------------------------------------
-" Java
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'java') >= 0
-    Plug 'artur-shaik/vim-javacomplete2', {'for': ['java', 'jsp']}
-endif
-
 
 "----------------------------------------------------------------------
 " lisp
@@ -550,12 +544,6 @@ if index(g:bundle_group, 'asyncComplete') >= 0
 		" Git
 		Plug 'laixintao/asyncomplete-gitcommit'
 
-		" tabline
-		if has('win32') || has('win64')
-			Plug 'kitagry/asyncomplete-tabnine.vim', { 'do': 'powershell -executionpolicy bypass -File install.ps1' }
-		else
-			Plug 'kitagry/asyncomplete-tabnine.vim', { 'do': './install.sh' }
-		endif
 
 		" Tmux
 		"Plug 'wellle/tmux-complete.vim'
