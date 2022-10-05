@@ -18,7 +18,6 @@ if !exists('g:bundle_group')
     let g:bundle_group += ['tags', 'nerdtree', 'ale', 'echodoc']
     let g:bundle_group += ['leaderf']
     let g:bundle_group += ['web']
-    let g:bundle_group += ['java']
     let g:bundle_group += ['lisp']
     let g:bundle_group += ['markdown']
     let g:bundle_group += ['asyncRun', 'asyncComplete']
@@ -213,7 +212,10 @@ if index(g:bundle_group, 'enhanced') >= 0
 	Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
 
 	" sql 支持
-	Plug 'tpope/vim-dadbod'	
+	Plug 'tpope/vim-dadbod'
+	
+	" 项目跳转
+	Plug 'tpope/vim-projectionist'	
 
 endif
 
@@ -285,7 +287,7 @@ if index(g:bundle_group, 'filetypes') >= 0
 	Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
 	" C++ 语法高亮增强，支持 11/14/17 标准
-	Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+	"Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
 	" 额外语法文件
 	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
@@ -388,11 +390,11 @@ if index(g:bundle_group, 'web') >= 0
     Plug 'mattn/emmet-vim'
 
     " css语法高亮
-    Plug 'ap/vim-css-color', {'for': ['html', 'css']}
+    Plug 'ap/vim-css-color', {'for': ['html', 'css', 'vue']}
 	Plug 'hail2u/vim-css3-syntax'
 
     " JavaScript语法突出显示和改进的缩进
-    Plug 'pangloss/vim-javascript', {'for': ['html', 'js']}
+    Plug 'pangloss/vim-javascript', {'for': ['html', 'js', 'vue']}
 
 	" jsx语法高亮
 	Plug 'yuezk/vim-js'

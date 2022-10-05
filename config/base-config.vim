@@ -84,7 +84,7 @@ let g:signify_vcs_cmds = {
 	\}
 
 if has('win32') || has('win64')
-    let g:gitgutter_git_executable = 'D:\ProSoftWare\Git\bin\git.exe'
+    let g:gitgutter_git_executable = 'D:\\ProSoftWare\\Git\\bin\\git.exe'
 endif
 
 "----------------------------------------------------------------------
