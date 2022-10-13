@@ -25,7 +25,7 @@ if !exists('g:bundle_group')
     let g:bundle_group += ['incsearch']
     let g:bundle_group += ['leetcode']
 	let g:bundle_group += ['python']
-	let g:bundle_group += ['zhInput'] " 中文输入法
+	let g:bundle_group += ['im'] " 中文输入法
 	let g:bundle_group += ['debug']
 endif
 
@@ -606,12 +606,8 @@ endif
 " 中文输入法
 "----------------------------------------------------------------------
 
-if index(g:bundle_group, 'zhInput') >= 0
-	Plug 'ZSaberLv0/ZFVimIM'
-	Plug 'ZSaberLv0/ZFVimJob' " 可选, 用于提升词库加载性能
-	Plug 'ZSaberLv0/ZFVimGitUtil' " 可选, 如果你希望定期自动清理词库 push 历史
-	Plug 'liaosw97/ZFVimIM_pinyin_base' " 你的词库
-	Plug 'ZSaberLv0/ZFVimIM_openapi' " 可选, 百度云输入法
+if index(g:bundle_group, 'im') >= 0
+	Plug 'lipingcoding/autoim.vim'
 endif
 
 "----------------------------------------------------------------------
