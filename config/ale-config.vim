@@ -31,6 +31,7 @@ set omnifunc=ale#completion#OmniFunc
 "----------------------------------------------------------------------
 " 虚拟文本提示
 let g:ale_virtualtext_cursor = 1
+let g:ale_virtualtext_delay = 1
 
 
 " 设定延迟和提示信息

@@ -115,13 +115,12 @@ endif
 " Python
 "----------------------------------------------------------------------
 
-if index(g:serve_base, 'Python') >= 0 && executable('pyls')
+if index(g:serve_base, 'Python') >= 0 && executable('pylsp')
 	
     au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+        \ 'name': 'pylsp',
+        \ 'cmd': {server_info->['pylsp']},
+        \ 'allowlist': ['python'],
         \ })
 endif
 

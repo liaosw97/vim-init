@@ -153,10 +153,12 @@ if index(g:bundle_group, 'basic') >= 0
 
 	" Git 支持
 	Plug 'tpope/vim-fugitive'
+	Plug 'Eliot00/git-lens.vim'
     Plug 'airblade/vim-gitgutter'
 
     " 符号键配对
-    Plug 'jiangmiao/auto-pairs'
+    " Plug 'jiangmiao/auto-pairs'
+	Plug 'Eliot00/auto-pairs'
 
     " 快速更改标点符号
     Plug 'tpope/vim-surround'
@@ -215,7 +217,13 @@ if index(g:bundle_group, 'enhanced') >= 0
 	Plug 'tpope/vim-dadbod'
 	
 	" 项目跳转
-	Plug 'tpope/vim-projectionist'	
+	Plug 'tpope/vim-projectionist'
+
+	" vim 多语言包管理
+	Plug 'sheerun/vim-polyglot'
+
+	" 主题插件
+	Plug 'joshdick/onedark.vim'
 
 endif
 
@@ -449,7 +457,7 @@ endif
 		if has('win32') || has('win64')
 			" python
 			if index(g:bundle_group, 'python') >= 0
-				!pip install python-language-server
+				!pip install python-lsp-server
 			endif
 		
 			" JavaScript
@@ -475,7 +483,7 @@ endif
 		else
 			" python
 			if index(g:bundle_group, 'python') >= 0
-				!sudo pip install python-language-server
+				!sudo pip install python-lsp-server
 			endif
 		
 			" JavaScript
