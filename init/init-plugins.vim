@@ -155,6 +155,7 @@ if index(g:bundle_group, 'basic') >= 0
 	Plug 'tpope/vim-fugitive'
 	Plug 'Eliot00/git-lens.vim'
     Plug 'airblade/vim-gitgutter'
+	Plug 'cohama/agit.vim'
 
     " 符号键配对
     " Plug 'jiangmiao/auto-pairs'
@@ -183,6 +184,8 @@ if index(g:bundle_group, 'basic') >= 0
 	" 统计工作量
 	Plug 'wakatime/vim-wakatime'
 
+	" 多光标编辑
+	Plug 'mg979/vim-visual-multi', {'branch': 'master'}	
 
 endif
 
