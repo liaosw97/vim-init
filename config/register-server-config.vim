@@ -39,7 +39,7 @@ if index(g:serve_base, 'Common') >=0
     call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
         \ 'name': 'omni',
         \ 'whitelist': ['*'],
-        \ 'blacklist': ['c', 'cpp', 'java'],
+        \ 'blacklist': ['c', 'cpp', 'java', 'sql'],
         \ 'completor': function('asyncomplete#sources#omni#completor')
         \  }))
 

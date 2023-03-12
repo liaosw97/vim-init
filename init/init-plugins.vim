@@ -17,6 +17,7 @@ if !exists('g:bundle_group')
     let g:bundle_group = ['basic', 'enhanced', 'filetypes', 'textobj']
     let g:bundle_group += ['tags', 'nerdtree', 'ale', 'echodoc']
     let g:bundle_group += ['leaderf']
+	let g:bundle_group += ['fzf']
     let g:bundle_group += ['web']
     let g:bundle_group += ['lisp']
     let g:bundle_group += ['markdown']
@@ -127,9 +128,6 @@ if index(g:bundle_group, 'basic') >= 0
 	" 展示开始画面，显示最近编辑过的文件
 	Plug 'mhinz/vim-startify'
 
-	" 一次性安装一大堆 colorscheme
-	"Plug 'flazz/vim-colorschemes'
-
 	" 支持库，给其他插件用的函数库
 	Plug 'xolox/vim-misc'
 
@@ -197,9 +195,6 @@ if index(g:bundle_group, 'enhanced') >= 0
 
 	" 用 v 选中一个区域后，ALT_+/- 按分隔符扩大/缩小选区
 	Plug 'terryma/vim-expand-region'
-
-	" 快速文件搜索
-	"Plug 'junegunn/fzf'
 
 	" 给不同语言提供字典补全，插入模式下 c-x c-k 触发
 	Plug 'asins/vim-dict'
@@ -297,9 +292,6 @@ if index(g:bundle_group, 'filetypes') >= 0
 	" lua 语法高亮增强
 	Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
-	" C++ 语法高亮增强，支持 11/14/17 标准
-	"Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
-
 	" 额外语法文件
 	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
 
@@ -384,8 +376,9 @@ if index(g:bundle_group, 'leaderf') >= 0 && (has('python') || has('python3'))
 	" 如果 vim 支持 python 则启用  Leaderf
 	Plug 'Yggdroot/LeaderF',{ 'do': ':LeaderfInstallCExtension' }
     Plug 'skywind3000/Leaderf-snippet'
-	
+endif
 
+if index(g:bundle_group, 'fzf') >= 0
 	Plug 'junegunn/fzf'
 	Plug 'junegunn/fzf.vim'
 endif

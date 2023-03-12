@@ -37,12 +37,11 @@ let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 1
 let g:lsp_diagnostics_virtual_text_delay = 400
 " 启用代码操作的标志
 let g:lsp_document_code_action_signs_enabled = 1
-let g:lsp_document_code_action_signs_delay = 400
 
 
 " 启用镶嵌提示
 let g:lsp_inlay_hints_enabled = 1
-let g:lsp_inlay_hints_delay = 400
+
 
 "----------------------------------------------------------------------
 " vim-lsp 
