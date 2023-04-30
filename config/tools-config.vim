@@ -249,10 +249,12 @@ let g:leetcode_solution_filetype='python3'
 let g:leetcode_browser='edge'
 
 "----------------------------------------------------------------------
-" 中文输入法 
+" MarkDown-Preview 
 "----------------------------------------------------------------------
-" 输入法切换
-let g:autoim_toggle_shortcut = 'shift'
+" 设置默认浏览器
+if has('win32') || has('win64')
+	let g:mkdp_browser = 'D:\\ProSoftWare\\Scoop\\apps\\firefox\\current\\firefox'
+endif
 
 "----------------------------------------------------------------------
 " fzf 

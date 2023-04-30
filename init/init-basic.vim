@@ -242,9 +242,9 @@ set guioptions-=R
 set guioptions-=m
 set guioptions-=T
 
-"set gcr=a:block-blinkon0	    " 禁止光标闪烁(与光标变细有冲突)
+set gcr=a:block-blinkon0	    " 禁止光标闪烁(与光标变细有冲突)
 " 使得terminal的光标变为细线，而不是默认的粗条。这个在vim的普通模式和插入模式都会生效。
-set gcr=n-v-c:ver25-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor/lCursor
+"set gcr=n-v-c:ver25-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor/lCursor
 
 
 "----------------------------------------------------------------------
