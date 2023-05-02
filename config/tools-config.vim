@@ -274,4 +274,28 @@ let g:fzf_tags_command = 'ctags -R'
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
+"----------------------------------------------------------------------
+" im 
+"----------------------------------------------------------------------
+
+if has('win32') || has('win64')
+	let g:XkbSwitchEnabled = 1
+	let g:XkbSwitchLib = 'C:\\Users\\Dell\\.vim\\vim-init\\winDll\\libxkbswitch32.dll'
+	let g:barbaric_libxkbswitch = 'C:\\Users\\Dell\\.vim\\vim-init\\winDll\\libxkbswitch32.dll'
+
+else
+	" The IME to invoke for managing input languages (macos, fcitx, ibus, xkb-switch)
+	let g:barbaric_ime = 'fcitx'
+
+endif
+
+" The input method for Normal mode (as defined by `xkbswitch -g`, `ibus engine`, or `xkb-switch -p`)
+let g:barbaric_default = 0
+
+" The scope where alternate input methods persist (buffer, window, tab, global)
+let g:barbaric_scope = 'buffer'
+
+" Forget alternate input method after n seconds in Normal mode (disabled by default)
+" Useful if you only need IM persistence for short bursts of active work.
+let g:barbaric_timeout = -1
 
