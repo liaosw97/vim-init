@@ -279,9 +279,10 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 "----------------------------------------------------------------------
 
 if has('win32') || has('win64')
+	let g:barbaric_ime = 'xkb-switch'
 	let g:XkbSwitchEnabled = 1
-	let g:XkbSwitchLib = 'C:\\Users\\Dell\\.vim\\vim-init\\winDll\\libxkbswitch32.dll'
-	let g:barbaric_libxkbswitch = 'C:\\Users\\Dell\\.vim\\vim-init\\winDll\\libxkbswitch32.dll'
+	let g:XkbSwitchLib = 'C:\\Users\\Dell\\.vim\\vim-init\\winDll\\libxkbswitch64.dll'
+	let g:barbaric_libxkbswitch = 'C:\\Users\\Dell\\.vim\\vim-init\\winDll\\libxkbswitch64.dll'
 
 else
 	" The IME to invoke for managing input languages (macos, fcitx, ibus, xkb-switch)
@@ -298,4 +299,7 @@ let g:barbaric_scope = 'buffer'
 " Forget alternate input method after n seconds in Normal mode (disabled by default)
 " Useful if you only need IM persistence for short bursts of active work.
 let g:barbaric_timeout = -1
+
+" The fcitx-remote binary (to distinguish between fcitx and fcitx5)
+let g:barbaric_fcitx_cmd = 'fcitx5-remote'
 
