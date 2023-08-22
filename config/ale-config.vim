@@ -64,6 +64,7 @@ let g:ale_linters = {
 		\ 'javascript': ['eslint'],
 		\ 'vue': ['eslint', 'volar'],
 		\ 'typescript': ['eslint', 'typescript'],
+		\ 'verilog': ['hdl-checker'],
 		\ }
 
 let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}

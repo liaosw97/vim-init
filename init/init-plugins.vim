@@ -28,6 +28,7 @@ if !exists('g:bundle_group')
 	let g:bundle_group += ['python']
 	let g:bundle_group += ['im'] " 中文输入法
 	let g:bundle_group += ['debug']
+	let g:bundle_group += ['verilog']
 endif
 
 "----------------------------------------------------------------------
@@ -339,6 +340,11 @@ endif
 			if index(g:bundle_group, 'web') >= 0 
 				!npm install -g eslint eslint-plugin-vue
 			endif
+
+			# verilog
+			if index(g:bundle_group, 'verilog') >= 0
+				!pip install hdl-checker --upgrade
+			endif
 		else
 			" python
 			if index(g:bundle_group, 'python') >= 0
@@ -349,6 +355,12 @@ endif
 			if index(g:bundle_group, 'web') >= 0 
 				!sudo npm install -g eslint eslint-plugin-vue
 			endif
+
+			" verilog
+			if index(g:bundle_group, 'verilog') >= 0
+				!sudo pip install hdl-checker --upgrade
+			endif
+
 		endif
 	endfunction	
 
@@ -624,6 +636,13 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'debug') >= 0
 	Plug 'puremourning/vimspector'
+endif
+
+"----------------------------------------------------------------------
+"verilog 
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'verilog') >= 0
+	Plug 'HonkW93/automatic-verilog'
 endif
 
 "----------------------------------------------------------------------
