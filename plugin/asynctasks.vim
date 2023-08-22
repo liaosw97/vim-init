@@ -4,8 +4,8 @@
 "
 " Maintainer: skywind3000 (at) gmail.com, 2020-2021
 "
-" Last Modified: 2022/11/29 04:55
-" Verision: 1.9.9
+" Last Modified: 2023/08/03 21:20
+" Verision: 1.9.12
 "
 " For more information, please visit:
 " https://github.com/skywind3000/asynctasks.vim
@@ -1303,6 +1303,14 @@ function! s:task_option(task)
 		let notify = s:replace(notify, "'", "''")
 		let opts.post = "call asynctasks#finish('".notify."')"
 	endif
+	for name in ['init', 'hint']
+		if has_key(task, name)
+			let opts[name] = task[name]
+		endif
+	endfor
+	if has_key(task, 'filetype')
+		let opts.ft = get(task, 'filetype', '')
+	endif
 	return opts
 endfunc
 
@@ -1934,6 +1942,9 @@ endfunc
 "----------------------------------------------------------------------
 function! asynctasks#cmd(bang, args, ...)
 	call s:api_init()
+	if a:args == '-load'
+		return 0
+	endif
 	if s:requirement('asyncrun') == 0
 		return -1
 	endif
