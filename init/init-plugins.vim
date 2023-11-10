@@ -341,7 +341,7 @@ endif
 				!npm install -g eslint eslint-plugin-vue
 			endif
 
-			# verilog
+			" verilog
 			if index(g:bundle_group, 'verilog') >= 0
 				!pip install hdl-checker --upgrade
 			endif
