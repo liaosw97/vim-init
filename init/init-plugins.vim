@@ -421,7 +421,7 @@ if index(g:bundle_group, 'web') >= 0
 
 	" post install (yarn install | npm install) then load plugin only for editing supported files
 	Plug 'prettier/vim-prettier', {
-		\ 'do': 'npm install --production',
+		\ 'do': 'yarn install -frozen-lockfile --production',
 		\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html', 'xml'] }
 
 	Plug 'alvan/vim-closetag'
