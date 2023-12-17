@@ -343,4 +343,8 @@ sign define vimspectorBP text=☛ texthl=Normal
 sign define vimspectorBPDisabled text=☞ texthl=Normal
 sign define vimspectorPC text=🔶 texthl=SpellBad
 
+"----------------------------------------------------------------------
+" org-model 
+"----------------------------------------------------------------------
 
+let g:org_agenda_files = ['~/.vim/vim-init/org/*.org']

@@ -421,7 +421,7 @@ if index(g:bundle_group, 'web') >= 0
 
 	" post install (yarn install | npm install) then load plugin only for editing supported files
 	Plug 'prettier/vim-prettier', {
-		\ 'do': 'npm install --frozen-lockfile --production',
+		\ 'do': 'npm install --production',
 		\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html', 'xml'] }
 
 	Plug 'alvan/vim-closetag'
@@ -561,7 +561,6 @@ if index(g:bundle_group, 'asyncComplete') >= 0
     
 		" Git
 		Plug 'laixintao/asyncomplete-gitcommit'
-
 
 		" Tmux
 		"Plug 'wellle/tmux-complete.vim'
