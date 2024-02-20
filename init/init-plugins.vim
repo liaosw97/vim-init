@@ -332,9 +332,9 @@ endif
 	function! InstallRequiredForALE(info)
 		if has('win32') || has('win64')
 			" python
-			if index(g:bundle_group, 'python') >= 0
-				!pip install flake8
-			endif
+			" if index(g:bundle_group, 'python') >= 0
+			"	!pip install flake8
+			" endif
 
 			" JavaScript
 			if index(g:bundle_group, 'web') >= 0 
@@ -347,9 +347,9 @@ endif
 			endif
 		else
 			" python
-			if index(g:bundle_group, 'python') >= 0
-				!sudo pip install flake8
-			endif
+			" if index(g:bundle_group, 'python') >= 0
+			"	!sudo pacman -S flake8
+			" endif
 
 			" JavaScript
 			if index(g:bundle_group, 'web') >= 0 
@@ -358,7 +358,7 @@ endif
 
 			" verilog
 			if index(g:bundle_group, 'verilog') >= 0
-				!sudo pip install hdl-checker --upgrade
+				!sudo pacman -S hdl-checker
 			endif
 
 		endif
@@ -491,7 +491,7 @@ endif
 		else
 			" python
 			if index(g:bundle_group, 'python') >= 0
-				!sudo pip install python-lsp-server
+				!sudo pacman -S python-lsp-server
 			endif
 		
 			" JavaScript
@@ -500,7 +500,7 @@ endif
 			endif
 
 			if executable('ctags')
-				!sudo pip install pygments
+				!sudo pacman -S pygments
 			endif
 
 			" vim
