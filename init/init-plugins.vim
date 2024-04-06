@@ -391,7 +391,7 @@ if index(g:bundle_group, 'leaderf') >= 0 && (has('python') || has('python3'))
 endif
 
 if index(g:bundle_group, 'fzf') >= 0
-	Plug 'junegunn/fzf'
+	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
 endif
 

@@ -259,8 +259,16 @@ endif
 "----------------------------------------------------------------------
 " fzf 
 "----------------------------------------------------------------------
+
+let g:fzf_vim = {}
+
+"let g:fzf_layout = { 'window': { 'width': 0.6, 'height': 0.95, 'relative': v:true } }
+" - down / up / left / right
+let g:fzf_layout = { 'down': '30%' }
+
+let g:fzf_history_dir = '~/.cache/fzf-history'
 "
-let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
+let g:fzf_preview_window = ['right,50%', 'ctrl-/']
 
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
@@ -273,6 +281,12 @@ let g:fzf_tags_command = 'ctags -R'
 
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+
+
+if has("win32") || has("win64")
+	let g:fzf_vim.preview_bash = 'D:\\ProSoftWare\\Git\\bin\\bash.exe'
+endif
 
 
 function! s:list_buffers()
@@ -292,7 +306,9 @@ command! BD call fzf#run(fzf#wrap({
   \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
 \ }))
 
-let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
 
 "----------------------------------------------------------------------
 " im 
@@ -346,5 +362,5 @@ sign define vimspectorPC text=🔶 texthl=SpellBad
 "----------------------------------------------------------------------
 " org-model 
 "----------------------------------------------------------------------
-
-let g:org_agenda_files = ['~/.vim/vim-init/org/*.org']
+"
+"
