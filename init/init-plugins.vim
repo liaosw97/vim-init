@@ -16,8 +16,7 @@
 if !exists('g:bundle_group')
     let g:bundle_group = ['basic', 'enhanced', 'filetypes', 'textobj']
     let g:bundle_group += ['tags', 'nerdtree', 'ale', 'echodoc']
-    let g:bundle_group += ['leaderf']
-	let g:bundle_group += ['fzf']
+    let g:bundle_group += ['leaderf', 'fzf']
     let g:bundle_group += ['web']
     let g:bundle_group += ['lisp']
     let g:bundle_group += ['markdown']
@@ -29,6 +28,7 @@ if !exists('g:bundle_group')
 	let g:bundle_group += ['im'] " 中文输入法
 	let g:bundle_group += ['debug']
 	let g:bundle_group += ['verilog']
+	let g:bundle_group += ['sql']
 endif
 
 "----------------------------------------------------------------------
@@ -212,9 +212,6 @@ if index(g:bundle_group, 'enhanced') >= 0
 	" 提供 gist 接口
 	Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
 
-	" sql 支持
-	Plug 'tpope/vim-dadbod'
-	
 	" 项目跳转
 	Plug 'tpope/vim-projectionist'
 
@@ -642,6 +639,22 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'verilog') >= 0
 	Plug 'HonkW93/automatic-verilog'
+endif
+
+"----------------------------------------------------------------------
+" SQL
+"----------------------------------------------------------------------
+
+if index(g:bundle_group, 'sql') >= 0
+	" sql 支持
+	Plug 'tpope/vim-dadbod'
+
+	" sql UI
+	Plug 'kristijanhusak/vim-dadbod-ui'
+
+	" sql complete
+	Plug 'kristijanhusak/vim-dadbod-completion'
+
 endif
 
 "----------------------------------------------------------------------

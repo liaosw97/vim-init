@@ -364,3 +364,35 @@ sign define vimspectorPC text=🔶 texthl=SpellBad
 "----------------------------------------------------------------------
 "
 "
+"----------------------------------------------------------------------
+" SQL
+"----------------------------------------------------------------------
+"
+let g:dbs = {
+\ }
+
+let g:db_ui_show_help = 1
+
+let g:db_ui_winwidth = 30
+
+let g:db_ui_use_nerd_fonts = 1
+
+let g:db_ui_auto_execute_table_helpers = 1
+
+let g:db_ui_save_location = '~/.cache/sql'
+
+let g:db_ui_dotenv_variable_prefix = 'MYPREFIX_'
+
+let g:vim_dadbod_completion_mark = 'MYMARK'
+
+let g:vim_dadbod_completion_source_limits = {
+    \ 'schemas': 150,
+    \ 'tables': 100,
+    \ 'columns': 120,
+    \ 'reserved_words': 140,
+    \ 'functions': 50
+    \ }
+
+autocmd FileType sql setlocal omnifunc=vim_dadbod_completion#omni
+
+"----------------------------------------------------------------------
