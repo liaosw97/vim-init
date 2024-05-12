@@ -60,6 +60,8 @@ let NERDTreeShowHidden = 1
 
 " 删除文件时自动删除文件对应 buffer
 let NERDTreeAutoDeleteBuffer = 1
+
+let g:NERDTreeFileLines = 0
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeHijackNetrw = 0
@@ -190,9 +192,10 @@ set statusline+=%{NearestMethodOrFunction()}
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 "----------------------------------------------------------------------
-" incsearch
+" search
 "----------------------------------------------------------------------
 
+" incsearch
 let g:incsearch#auto_nohlsearch = 1
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
@@ -233,6 +236,90 @@ endfunction
 noremap <silent><expr> z/ incsearch#go(<SID>config_fuzzyall())
 noremap <silent><expr> z? incsearch#go(<SID>config_fuzzyall({'command': '?'}))
 noremap <silent><expr> zg? incsearch#go(<SID>config_fuzzyall({'is_stay': 1}))
+
+" Fuzzyy
+"
+" Set to 0 to disable default keybindings
+" Default to 1
+let g:enable_fuzzyy_keymaps = 0
+
+" Make FuzzyFiles respect .gitignore if set to 1
+" only work when
+" 1. inside a git repository and git is installed
+" 2. or fd is installed
+" Default to 0
+let g:files_respect_gitignore = 1
+
+" Change navigation keymaps
+" The following is the default
+let g:fuzzyy_keymaps = {
+	\    'menu_up': ["\<c-p>", "\<Up>"],
+	\    'menu_down': ["\<c-n>", "\<Down>"],
+	\    'menu_select': ["\<CR>"],
+	\    'preview_up': ["\<c-u>"],
+	\    'preview_down': ["\<c-d>"],
+	\    'cursor_begining': ["\<c-a>"],
+	\    'cursor_end': ["\<c-e>"],
+	\    'delete_all': ["\<c-k>"],
+	\    'exit': ["\<Esc>", "\<c-c>", "\<c-[>"], 
+	\ }
+
+" Change highlight of the matched text when searching
+" Default to cursearch
+let g:fuzzyy_menu_matched_hl = 'cursearch'
+
+" Whether show devicons when using FuzzyFiles or FuzzyBuffers
+" Requires vim-devicons
+" Default to 1 if vim-devicons is installed, 0 otherwise
+let g:fuzzyy_devicons = 1
+
+" Enable dropdown theme
+" Default to 0
+let g:fuzzyy_dropdown = 1
+
+" Enable FuzzyMRUFiles command.
+" If enabled, the MRU list will be recorded into ~/.vim_mru_files in Unix
+" and ~/_vim_mru_files in Windows
+" Default to 0
+let g:enable_fuzzyy_MRU_files = 1
+
+" FuzzyMRUFiles default shows MRU files that are in the current project
+" default to 0
+let g:fuzzyy_mru_project_only = 0
+
+" window layout configuraton
+" you can override it by setting g:fuzzyy_window_layout
+
+" 1 means enable preview window, 0 means disable
+" 0.5 means preview window will take 50% of the layout
+" 0.8 means total width of the layout will take 80% of the screen
+let g:fuzzyy_window_layout = {
+	\    'FuzzyFiles': {
+	\        'preview': 1,         
+	\        'preview_ratio': 0.5, 
+	\        'width': 0.8,        
+	\    },
+	\    'FuzzyGrep': {
+	\        'preview': 1,
+	\        'preview_ratio': 0.5,
+	\        'width': 0.8,
+	\    },
+	\    'FuzzyBuffers': {
+	\        'preview': 1,
+	\        'preview_ratio': 0.5,
+	\        'width': 0.8,
+	\    },
+	\    'FuzzyMRUFiles': {
+	\        'preview': 1,
+	\        'preview_ratio': 0.5,
+	\        'width': 0.8,
+	\    },
+	\    'FuzzyHighlights': {
+	\       'preview': 1,
+	\       'preview_ratio': 0.7,
+	\       'width': 0.8,
+	\   },
+	\}
 
 "----------------------------------------------------------------------
 " leetcode
@@ -369,8 +456,8 @@ sign define vimspectorPC text=🔶 texthl=SpellBad
 "----------------------------------------------------------------------
 "
 let g:dbs = {
-\  'mysql8': 'mysql://',
-\  'mariaDB': 'mysql://'
+\  'mysql8': 'mysql://root:1997417Lsw.@124.221.157.112',
+\  'mariaDB': 'mysql://root:1997417Lsw.@192.168.8.7'
 \ }
 
 let g:db_ui_show_help = 1
@@ -382,6 +469,8 @@ let g:db_ui_use_nerd_fonts = 1
 let g:db_ui_auto_execute_table_helpers = 1
 
 let g:db_ui_save_location = '~/.cache/sql'
+
+let g:db_ui_tmp_query_location = '~/.cache/sql/queries'
 
 let g:db_ui_dotenv_variable_prefix = 'MYPREFIX_'
 

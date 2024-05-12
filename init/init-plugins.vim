@@ -15,20 +15,13 @@
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
     let g:bundle_group = ['basic', 'enhanced', 'filetypes', 'textobj']
-    let g:bundle_group += ['tags', 'nerdtree', 'ale', 'echodoc']
-    let g:bundle_group += ['leaderf', 'fzf']
-    let g:bundle_group += ['web']
-    let g:bundle_group += ['lisp']
-    let g:bundle_group += ['markdown']
+    let g:bundle_group += ['tags', 'nerdtree', 'ale', 'echodoc', 'vista']
+    let g:bundle_group += ['leaderf', 'fzf', 'search']
+    let g:bundle_group += ['web', 'lisp', 'python', 'verilog', 'sql', 'markdown']
     let g:bundle_group += ['asyncRun', 'asyncComplete']
-    let g:bundle_group += ['vista']
-    let g:bundle_group += ['incsearch']
     let g:bundle_group += ['leetcode']
-	let g:bundle_group += ['python']
 	let g:bundle_group += ['im'] " 中文输入法
 	let g:bundle_group += ['debug']
-	let g:bundle_group += ['verilog']
-	let g:bundle_group += ['sql']
 endif
 
 "----------------------------------------------------------------------
@@ -200,9 +193,6 @@ if index(g:bundle_group, 'enhanced') >= 0
 	" 给不同语言提供字典补全，插入模式下 c-x c-k 触发
 	Plug 'asins/vim-dict'
 
-	" 使用 :FlyGrep 命令进行实时 grep
-	Plug 'liaosw97/FlyGrep.vim'
-
 	" 使用 :CtrlSF 命令进行模仿 sublime 的 grep
 	Plug 'dyng/ctrlsf.vim'
 
@@ -308,7 +298,7 @@ endif
 " NERDTree
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'nerdtree') >= 0
-	Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
+	Plug 'preservim/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
     Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     Plug 'PhilRunninger/nerdtree-visual-selection'
@@ -591,13 +581,17 @@ if index(g:bundle_group, 'vista') >= 0
 endif
 
 "----------------------------------------------------------------------
-" incsearch
+" search
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'incsearch') >= 0
+if index(g:bundle_group, 'search') >= 0
     Plug 'haya14busa/incsearch.vim'		    	
     Plug 'haya14busa/incsearch-fuzzy.vim'
     Plug 'haya14busa/incsearch-easymotion.vim'
 
+	" 使用 :FlyGrep 命令进行实时 grep
+	Plug 'liaosw97/FlyGrep.vim'
+
+	Plug 'Donaldttt/fuzzyy'
 endif
 
 "----------------------------------------------------------------------
