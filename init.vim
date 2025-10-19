@@ -70,3 +70,4 @@ LoadScript config/register-server-config.vim
 
 LoadScript config/tools-config.vim
 
+LoadScript config/other-config.vim
