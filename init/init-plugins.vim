@@ -22,6 +22,7 @@ if !exists('g:bundle_group')
     let g:bundle_group += ['leetcode']
 	let g:bundle_group += ['im'] " 中文输入法
 	let g:bundle_group += ['debug']
+	let g:bundle_group += ['AI']
 endif
 
 "----------------------------------------------------------------------
@@ -589,7 +590,7 @@ if index(g:bundle_group, 'search') >= 0
     Plug 'haya14busa/incsearch-easymotion.vim'
 
 	" 使用 :FlyGrep 命令进行实时 grep
-	Plug 'liaosw97/FlyGrep.vim'
+	" Plug 'liaosw97/FlyGrep.vim'
 
 	Plug 'Donaldttt/fuzzyy'
 endif
@@ -648,6 +649,16 @@ if index(g:bundle_group, 'sql') >= 0
 
 	" sql complete
 	Plug 'kristijanhusak/vim-dadbod-completion'
+
+endif
+
+"---------------------------------------------------------------------
+" AI
+"---------------------------------------------------------------------
+
+if index(g:bundle_group, 'AI') >= 0
+	
+	Plug 'liaosw97/vim-ai-doubao'
 
 endif
 

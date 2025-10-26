@@ -500,3 +500,10 @@ let g:completion_matching_ignore_case = 1
 autocmd FileType sql setlocal omnifunc=vim_dadbod_completion#omni
 
 "----------------------------------------------------------------------
+" AI
+"----------------------------------------------------------------------
+
+let g:vim_ai_name="openai"
+let g:vim_ai_config_file_path = '~/.config/vim-ai-token.json'
+
+"----------------------------------------------------------------------
